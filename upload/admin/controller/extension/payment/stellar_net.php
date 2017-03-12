@@ -28,6 +28,8 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['entry_asset_code'] = $this->language->get('entry_asset_code');
         $data['entry_issuer'] = $this->language->get('entry_issuer');
         $data['entry_tx_callback_url'] = $this->language->get('entry_tx_callback_url');
+        $data['entry_tx_callback_token'] = $this->language->get('entry_tx_callback_token');
+        $data['entry_testnet_mode'] = $this->language->get('entry_testnet_mode');
 
 		$data['entry_order_status'] = $this->language->get('entry_order_status');
 		$data['entry_total'] = $this->language->get('entry_total');
@@ -40,6 +42,8 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['help_publicid'] = $this->language->get('help_publicid');
         $data['help_issuer'] = $this->language->get('help_issuer');
         $data['help_tx_callback_url'] = $this->language->get('help_tx_callback_url');
+        $data['help_tx_callback_token'] = $this->language->get('help_tx_callback_token');
+        $data['help_testnet_mode'] = $this->language->get('help_testnet_mode');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -92,6 +96,18 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 			$data['stellar_net_tx_callback_url'] = $this->request->post['stellar_net_tx_callback_url'];
 		} else {
 			$data['stellar_net_tx_callback_url'] = $this->config->get('stellar_net_tx_callback_url');
+		}
+
+        if (isset($this->request->post['stellar_net_tx_callback_token'])) {
+			$data['stellar_net_tx_callback_token'] = $this->request->post['stellar_net_tx_callback_token'];
+		} else {
+			$data['stellar_net_tx_callback_token'] = $this->config->get('stellar_net_tx_callback_token');
+		}
+
+        if (isset($this->request->post['stellar_net_testnet_mode'])) {
+			$data['stellar_net_testnet_mode'] = $this->request->post['stellar_net_testnet_mode'];
+		} else {
+			$data['stellar_net_testnet_mode'] = $this->config->get('stellar_net_testnet_mode');
 		}
 
 		if (isset($this->request->post['stellar_net_total'])) {

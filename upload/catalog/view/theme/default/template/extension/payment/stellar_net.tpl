@@ -1,4 +1,9 @@
 <h2> <?php echo $text_title; ?> </h2>
+<?php
+  if ($testmode == 'Yes'){
+    echo '    <h2>'.$text_testmode . "</h2>";
+  }
+?>
 <div>
 <p> <?php echo $text_click_link; ?> </p><br />
 

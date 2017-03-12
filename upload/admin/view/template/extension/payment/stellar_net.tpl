@@ -50,6 +50,18 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_tx_callback_token; ?>"><?php echo $entry_tx_callback_token; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_tx_callback_token" value="<?php echo $stellar_net_tx_callback_token; ?>" placeholder="<?php echo $entry_tx_callback_token; ?>" id="input-total" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_testnet_mode; ?>"><?php echo $entry_testnet_mode; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_testnet_mode" value="<?php echo $stellar_net_testnet_mode; ?>" placeholder="<?php echo $entry_testnet_mode; ?>" id="input-total" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
             <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="stellar_net_total" value="<?php echo $stellar_net_total; ?>" placeholder="<?php echo $entry_total; ?>" id="input-total" class="form-control" />

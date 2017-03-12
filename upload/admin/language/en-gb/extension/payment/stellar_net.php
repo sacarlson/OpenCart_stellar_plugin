@@ -12,6 +12,8 @@ $_['entry_publicid']     = 'PublicId';
 $_['entry_asset_code']   = 'Asset Code';
 $_['entry_issuer']       = 'Issuer';
 $_['entry_tx_callback_url'] = 'Tx Callback URL';
+$_['entry_tx_callback_token'] = 'Callback Security Token';
+$_['entry_testnet_mode'] = 'TestNet Mode';
 
 $_['entry_total']        = 'Total';
 $_['entry_order_status'] = 'Order Status';
@@ -25,6 +27,8 @@ $_['help_asset_code']    = 'The asset_code accepted to be recieved on stellar.or
 $_['help_publicid']      = 'The stellar.org net PublicId that payment of purchases will be sent to, example GDUPQ...';
 $_['help_issuer']        = 'The stellar.org net Issuer Address of the asset_code that will be used in payment , example GBUY...';
 $_['help_tx_callback_url'] = 'URL address that bridge will call to update Order Payment Status, example: b.funtracker.site/store?route=callback';
+$_['help_tx_callback_token'] = 'Security Token sent from Stellar bridge to prove that stellar bridge sent the payment update info';
+$_['help_testnet_mode'] = 'Tell the customer that you are running in steller.org testnet mode (not real money), Yes for testnet, No for Live mode';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify payment Stellar.org Net Delivery!';

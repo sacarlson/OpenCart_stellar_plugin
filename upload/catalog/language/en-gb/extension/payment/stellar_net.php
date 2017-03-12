@@ -12,6 +12,7 @@ $_['text_issuer']		        = ' Issuer PublicId: ';
 $_['text_click_link']		    = ' Click Link to setup payment with the My_wallet web wallet app: ';
 $_['text_or_scan']              = ' Or scan QR-code with My_wallet or compatible stellar wallet';
 $_['text_memo']                 = ' Memo: ';
+$_['text_testmode']             = ' System is now in stellar.org TestNet mode (not real money) ';
 
 $_['text_response']				= 'Response from Stellar.org Net:';
 $_['text_success']				= '... your payment was successfully received.';
