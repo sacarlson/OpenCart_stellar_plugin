@@ -27,17 +27,18 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
         $data['stellar_net_publicid'] = $this->config->get('stellar_net_publicid');
+        $data['callback_url'] = $this->config->get('stellar_net_tx_callback_url');
 
         $data['order_id'] = $this->session->data['order_id'];
         $data['currency_code'] = $order_info['currency_code'];
         $data['currency_value'] = $order_info['currency_value'];
         $data['total_currency'] =  $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
         $data['total'] = $order_info['total'];
-        $data['qrcode_json'] = '%7B%22destination%22:%22' . $data['stellar_net_publicid'] . '%22,%22amount%22:%22' . $data['total'] . '%22,%22asset%22:%22' . $data['asset_code'] . '%22,%22issuer%22:%22' . $data['issuer'] . '%22,%22memo%22:%22' . data['order_id'] . '%22%7D';
+        $data['qrcode_json'] = '%7B%22destination%22:%22' . $data['stellar_net_publicid'] . '%22,%22amount%22:%22' . $data['total'] . '%22,%22asset%22:%22' . $data['asset_code'] . '%22,%22issuer%22:%22' . $data['issuer'] . '%22,%22memo%22:%22' . $data['order_id'] . '%22%7D';
         $data['wallet_url'] = 'https://wallet.funtracker.site';
         $data['qrcode_url'] = $data['wallet_url'] . '/?json=' . $data['qrcode_json'];
         $data['qrcode_link'] = '<a href="' . $data['qrcode_url'] . '" target="_blank"> Pay with My_wallet</a>';
-        
+        $data['qrcode_v2'] = '%7B%22tx_tag%22:%22' . $data['order_id'] . '%22,%22callback%22:%22' . $data['callback_url'] . '%22,%22ver%22:%222.0%22%7D';
 		return $this->load->view('extension/payment/stellar_net', $data);
 	}
 
@@ -57,14 +58,32 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 
 		$this->db->query("UPDATE `" . DB_PREFIX . "order` SET `order_status_id` = " . (int)$status_id . " WHERE `order_id` = " . (int)$order_id);
 	}
- 
+
+   public function get_tx() {
+     // http://b.funtracker.site/store/?route=extension/payment/stellar_net/get_tx&tx_tag=1
+     // returns: %7B%22destination%22:%22GDUPQLNDVSUKJ4XKQQDITC7RFYCJTROCR6AMUBAMPGBIZXQU4UTAGX7C%22,%22amount%22:%2285.0000%22,%22asset%22:%22USD%22,%22issuer%22:%22GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ%22,%22memo%22:%221%22%7D
+     $this->load->model('checkout/order');
+     if (isset($this->request->get['tx_tag'])) {
+       //tx_tag in this case is the order_id
+       $data['order_id'] = $this->request->get['tx_tag'];
+     } else {
+       echo "bad tx_tag";
+       return;
+     }
+     $order_info = $this->model_checkout_order->getOrder($data['order_id']);
+     $data['stellar_net_publicid'] = $this->config->get('stellar_net_publicid');
+     $data['asset_code'] = $this->config->get('stellar_net_asset_code');
+     $data['issuer'] = $this->config->get('stellar_net_issuer');
+     $data['total'] = $order_info['total'];
+     $data['qrcode_json'] = '%7B%22destination%22:%22' . $data['stellar_net_publicid'] . '%22,%22amount%22:%22' . $data['total'] . '%22,%22asset%22:%22' . $data['asset_code'] . '%22,%22issuer%22:%22' . $data['issuer'] . '%22,%22memo%22:%22' . $data['order_id'] . '%22%7D';
+     echo $data['qrcode_json'];
+   }
 
    public function callback() {
      // for test you can enter memo and amount and token with get
      //http://b.funtracker.site/store/?route=extension/payment/stellar_net/callback&memo=1&amount=85&token=123
      // when stellar bridge is used you just need add the token at the end for the bridge callback config
      // http://b.funtracker.site/store/?route=extension/payment/stellar_net/callback&token=123
-     // return: with info
      //echo "callback detected </br>";
      $this->load->model('checkout/order');
      if (isset($this->request->get['token'])) {
