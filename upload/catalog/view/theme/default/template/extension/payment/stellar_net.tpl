@@ -8,6 +8,19 @@
 <p> <?php echo $text_click_link; ?> </p><br />
 
 <h3>  <a href="https://wallet.funtracker.site/?json=%7B%22destination%22:%22<?php echo $stellar_net_publicid; ?>%22,%22amount%22:%22<?php echo $total; ?>%22,%22asset%22:%22<?php echo $asset_code; ?>%22,%22issuer%22:%22<?php echo $issuer; ?>%22,%22memo%22:%22<?php echo $order_id; ?>%22%7D" target="_blank"> Pay with My_wallet</a> </h3><br /> 
+<?php echo $qrcode_json?><br />
+<div id="qrcode" style="width:300px; height:300px; margin-top:15px;"></div>
+<script type="text/javascript">
+$( document ).ready(function () {
+    
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 300,
+	height : 300
+});
+qrcode.makeCode("<?php echo $qrcode_json; ?>");
+
+});
+</script>
 
 <p>  <?php echo $text_or_send; ?>   </p>
 <h3> <?php echo $text_to_PublicId; ?> <?php echo $stellar_net_publicid; ?></h3>

@@ -2,7 +2,7 @@
 class ControllerExtensionPaymentStellarNet extends Controller {
 	public function index() {
         $this->load->language('extension/payment/stellar_net');
-
+        //$this->document->addScript('catalog/view/javascript/qrcode/qrcode.js');
 		$data['button_confirm'] = $this->language->get('button_confirm');
 
 		$data['text_title'] = $this->language->get('text_title');
@@ -33,8 +33,11 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['currency_value'] = $order_info['currency_value'];
         $data['total_currency'] =  $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
         $data['total'] = $order_info['total'];
-
-
+        $data['qrcode_json'] = '%7B%22destination%22:%22' . $data['stellar_net_publicid'] . '%22,%22amount%22:%22' . $data['total'] . '%22,%22asset%22:%22' . $data['asset_code'] . '%22,%22issuer%22:%22' . $data['issuer'] . '%22,%22memo%22:%22' . data['order_id'] . '%22%7D';
+        $data['wallet_url'] = 'https://wallet.funtracker.site';
+        $data['qrcode_url'] = $data['wallet_url'] . '/?json=' . $data['qrcode_json'];
+        $data['qrcode_link'] = '<a href="' . $data['qrcode_url'] . '" target="_blank"> Pay with My_wallet</a>';
+        
 		return $this->load->view('extension/payment/stellar_net', $data);
 	}
 
