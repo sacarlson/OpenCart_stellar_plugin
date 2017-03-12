@@ -1,0 +1,29 @@
+# Bridge server bridge.cfg example
+
+port = 8001
+horizon = "https://horizon-testnet.stellar.org"
+network_passphrase = "Test SDF Network ; September 2015"
+api_key = ""
+mac_key = ""
+
+[[assets]]
+code="USD"
+issuer="GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ"
+
+[[assets]]
+code="EUR"
+issuer="GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ"
+
+[database]
+type = "mysql"
+url = "username:password@/gateway_test?parseTime=true"
+
+[accounts]
+authorizing_seed = "SDMRITVCFY6IIK6H5DXIVUOL342YFVE3VFOGVF3D7XXHGITPX4ABMYXR" # GCAW3TYUYGCNODKO4QKMD6PSH5GP3KES4GWGVFCKZ6DD6EJUDUQ77BO
+receiving_account_id = "GDUPQLNDVSUKJ4XKQQDITC7RFYCJTROCR6AMUBAMPGBIZXQU4UTAGX7C"
+
+[callbacks]
+#receive = "http://localhost:8002/receive"
+receive = "http://b.funtracker.site/store/?route=extension/payment/stellar_net/callback&token=abcde"
+
+error = "http://localhost:8002/error"
