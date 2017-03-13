@@ -28,6 +28,8 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
         $data['stellar_net_publicid'] = $this->config->get('stellar_net_publicid');
         $data['callback_url'] = $this->config->get('stellar_net_tx_callback_url');
+        $data['base_url'] = $this->config->get('config_url');
+        $data['callback_url'] = $data['base_url'] . '?route=extension/payment/stellar_net/get_tx&';
 
         $data['order_id'] = $this->session->data['order_id'];
         $data['currency_code'] = $order_info['currency_code'];
@@ -35,11 +37,15 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['total_currency'] =  $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
         $data['total'] = $order_info['total'];
         $data['qrcode_json'] = '%7B%22destination%22:%22' . $data['stellar_net_publicid'] . '%22,%22amount%22:%22' . $data['total'] . '%22,%22asset%22:%22' . $data['asset_code'] . '%22,%22issuer%22:%22' . $data['issuer'] . '%22,%22memo%22:%22' . $data['order_id'] . '%22%7D';
-        $data['wallet_url'] = 'https://wallet.funtracker.site';
-        $data['qrcode_url'] = $data['wallet_url'] . '/?json=' . $data['qrcode_json'];
-        $data['qrcode_link'] = '<a href="' . $data['qrcode_url'] . '" target="_blank"> Pay with My_wallet</a>';
+       
+        $data['wallet_url'] = $this->config->get('stellar_net_wallet_url');
+                        
         $data['qrcode_v2'] = '%7B%22tx_tag%22:%22' . $data['order_id'] . '%22,%22callback%22:%22' . $data['callback_url'] . '%22,%22ver%22:%222.0%22%7D';
-		return $this->load->view('extension/payment/stellar_net', $data);
+        $data['qrcode_url'] = $data['wallet_url'] . '/?json=' . $data['qrcode_json'];		
+        $data['qrcode_url_v2'] = $data['wallet_url'] . '/?json=' . $data['qrcode_v2'];
+        $data['qrcode_link'] = '<a href="' . $data['qrcode_url'] . '" target="_blank"> Pay with My_wallet</a>';
+        $data['qrcode_link_v2'] = '<a href="' . $data['qrcode_url_v2'] . '" target="_blank"> Pay with My_wallet</a>';
+        return $this->load->view('extension/payment/stellar_net', $data);
 	}
 
 	public function confirm() {
@@ -63,6 +69,8 @@ class ControllerExtensionPaymentStellarNet extends Controller {
      // http://b.funtracker.site/store/?route=extension/payment/stellar_net/get_tx&tx_tag=1
      // returns: %7B%22destination%22:%22GDUPQLNDVSUKJ4XKQQDITC7RFYCJTROCR6AMUBAMPGBIZXQU4UTAGX7C%22,%22amount%22:%2285.0000%22,%22asset%22:%22USD%22,%22issuer%22:%22GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ%22,%22memo%22:%221%22%7D
      $this->load->model('checkout/order');
+     //$data['base_url'] = $this->config->get('config_url');
+     //echo "base URL: " . $data['base_url'];
      if (isset($this->request->get['tx_tag'])) {
        //tx_tag in this case is the order_id
        $data['order_id'] = $this->request->get['tx_tag'];

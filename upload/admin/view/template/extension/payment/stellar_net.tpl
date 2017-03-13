@@ -44,9 +44,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_tx_callback_url; ?>"><?php echo $entry_tx_callback_url; ?></span></label>
+            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_wallet_url; ?>"><?php echo $entry_wallet_url; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="stellar_net_tx_callback_url" value="<?php echo $stellar_net_tx_callback_url; ?>" placeholder="<?php echo $entry_tx_callback_url; ?>" id="input-total" class="form-control" />
+              <input type="text" name="stellar_net_wallet_url" value="<?php echo $stellar_net_wallet_url; ?>" placeholder="<?php echo $entry_wallet_url; ?>" id="input-total" class="form-control" />
             </div>
           </div>
           <div class="form-group">

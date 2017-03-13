@@ -27,7 +27,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['entry_publicid'] = $this->language->get('entry_publicid');
         $data['entry_asset_code'] = $this->language->get('entry_asset_code');
         $data['entry_issuer'] = $this->language->get('entry_issuer');
-        $data['entry_tx_callback_url'] = $this->language->get('entry_tx_callback_url');
+        $data['entry_wallet_url'] = $this->language->get('entry_wallet_url');
         $data['entry_tx_callback_token'] = $this->language->get('entry_tx_callback_token');
         $data['entry_testnet_mode'] = $this->language->get('entry_testnet_mode');
 
@@ -41,7 +41,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['help_asset_code'] = $this->language->get('help_asset_code');
         $data['help_publicid'] = $this->language->get('help_publicid');
         $data['help_issuer'] = $this->language->get('help_issuer');
-        $data['help_tx_callback_url'] = $this->language->get('help_tx_callback_url');
+        $data['help_wallet_url'] = $this->language->get('help_wallet_url');
         $data['help_tx_callback_token'] = $this->language->get('help_tx_callback_token');
         $data['help_testnet_mode'] = $this->language->get('help_testnet_mode');
 
@@ -92,10 +92,10 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 			$data['stellar_net_issuer'] = $this->config->get('stellar_net_issuer');
 		}
 
-        if (isset($this->request->post['stellar_net_tx_callback_url'])) {
-			$data['stellar_net_tx_callback_url'] = $this->request->post['stellar_net_tx_callback_url'];
+        if (isset($this->request->post['stellar_net_wallet_url'])) {
+			$data['stellar_net_wallet_url'] = $this->request->post['stellar_net_wallet_url'];
 		} else {
-			$data['stellar_net_tx_callback_url'] = $this->config->get('stellar_net_tx_callback_url');
+			$data['stellar_net_wallet_url'] = $this->config->get('stellar_net_wallet_url');
 		}
 
         if (isset($this->request->post['stellar_net_tx_callback_token'])) {

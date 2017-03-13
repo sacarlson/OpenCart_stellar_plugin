@@ -9,8 +9,8 @@ $_['text_to_PublicId']		    = ' To PublicId: ';
 $_['text_amount']				= ' For the Amount: ';
 $_['text_asset_code']		    = ' Asset Code: ';
 $_['text_issuer']		        = ' Issuer PublicId: ';
-$_['text_click_link']		    = ' Click Link to setup payment with the My_wallet web wallet app: ';
-$_['text_or_scan']              = ' Or scan QR-code with My_wallet or compatible stellar wallet';
+$_['text_click_link']		    = ' Click Link bellow to setup payment with the My_wallet Stellar.org Net web wallet app: ';
+$_['text_or_scan']              = ' Or scan QR-code with My_wallet QR-code scanner or compatible Stellar.org Net wallet';
 $_['text_memo']                 = ' Memo: ';
 $_['text_testmode']             = ' System is now in stellar.org TestNet mode (not real money) ';
 
