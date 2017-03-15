@@ -64,7 +64,10 @@ In this case the main difference with V3.0 will be to do the escrow account crea
 * After the selection is made for the type of transaction (escrow, no escrow), the customer can ether click the generated URL or scan the QR-code (they do the same thing internaly in the wallet).
   
 * The URL link brings in the URL data with GET into the web wallet that contains: tx_tag, callback URL, version number.
-qr-code json formated example of data post URL escape decoded: {"tx_tag":"abcde", "callback":"https://callback.website.com","ver":"3.1"}
+qr-code json formated
+ 
+example of data post URL escape decoded: {"tx_tag":"abcde", "callback":"https://callback.website.com","ver":"3.1"}
+
 example as seen in browser:
 http://sacarlson.github.io/my_wallet/?json=%7B%22tx_tag%22:%2232%22,%22callback%22:%22http://b.funtracker.site/store/index.php?route=extension/payment/stellar_net/get_tx&%22,%22ver%22:%222.0%22%7D
 
@@ -72,57 +75,83 @@ Note: we had to escape encode the "{}" and " " spaces to allow it within the URL
 
 * If the version is seen as ver:3.1, the wallet knows that this is the start of an escrow transaction (ver 2.0 - 2.99 is non escrow at this time).  So the wallet then sends a restclient PUT with just the tx_tag that it just recieved back to the stores callback URL address that will return the details of the transaction.
 
-example of what would be sent from the customers wallet with curl to the store callback URL:
+example of what would be sent from the customers wallet when seen with curl to the store callback URL:
 
   curl  https://callback.website.com?tx_tag=abcde
 
 
-* The store returns response to the above back to the wallet with detailed transaction data.  
-example transaction details returned from store callback in the present format that is escape encoded json format to allow usage in URL links for v1.0:
+* The store returns response to the above back to the wallet with detailed transaction data. 
+ 
+example transaction details string returned from store callback in the present format that is escape encoded json format that allows usage in URL links for v1.0:
+
 %7B%22destination%22:%22GDUPQLNDVSUKJ4XKQQDITC7RFYCJTROCR6AMUBAMPGBIZXQU4UTAGX7C%22,%22amount%22:%22204.9900%22,%22asset%22:%22USD%22,%22issuer%22:%22GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ%22,%22memo%22:%2232%22,%22escrow_publicId%22:%22GRTYWX...%22,%22escrow_email%22:%22escrow@gmail.com%22,%22dest_email%22:%22dest@gmail.com%22%7D
 
-values seen in the above data:
+values seen in the above data string when decoded:
+
 destination: GDUP...
+
 dest_email: dest@gmail.com
-amount:
-asset:
-issuer:
+
+amount: 204.9900
+
+asset: USD
+
+issuer: GCEZW
+
 memo: 32
+
 escrow_publicId:
+
 escrow_email: escrow@gmail.com
+
 escrow_api_url: api.escrow.com
+
 escrow_expire: timestamp of expire time when the store can recover it's funds with no reponse from the buyer.
 
 
-* Now the customer wallet sends setup info to the escrow server through it's simple public restclient api with the info it will need to be a signer, note at this point it generates a random escrow_publicId account but does not fund it yet.
-note: for this backend escrow server we plan to modify multisig apps backend server with some added field info added. when these changes are truely made in the code, it may effect the finalized format of what and how the info is sent. 
+* Now the customer wallet sends setup info to the escrow server through it's public restclient api with the info it will need to be a signer. Note at this point it generates a random escrow_publicId account but does not fund it yet.
+
+note2: for this backend escrow server we plan to modify multisig apps backend server with some added field info added. when these changes are truely made in the code, it may effect the finalized format of what and how the info is sent. 
+
 info to send escrow server:
 
  dest_publicId: The store's publicId that will end up recieving the funds if all goes well
+
  dest_email: The stores email address for contact if problems accure in the contract
+
  source_email: The buyer customer and/or source of funding
+
  escrow_holding_publicId: The escrow holding account for the escrow funds that will have the 3 signers and 2 of 3 weight settings
+
  escrow_signer_publicId: The 3rd party escrow signers PublicId
+
  b64_timed_env: this is a transaction that is pre-signed by the buyer that is set to become valid at the escrow_expire time, it is setup to send the asset/issuer pair funds to the destination publicId address. it will also need the sig of the store or the escrow_signer to become valid. The sequence code on this tx will be +1 of present sequence code for the escrow_holding account as it will be exicuted 1 transaction after the funding transaction.
  
  amount: the amount of the asset used in the purchase
+
  asset:  asset used in the purchase
+
  issuer: issuer of the asset used in the purchase
+
  memo: the memo in the transaction that the store uses as a reference of the stores order_id
+
  escrow_expire: timestamp of the expire time when the store can recover it's funds with no response from the buyer.
 
 * The escrow server returns results after the above restclient GET showing the escrow has been recieved and agrees and is able to participate in the contract with these values returned:
 
  tx_id (or tx_tag?): some random string or number that id's this transaction to be uses to query and create a refund and/or fund transactions.
+
  b64_timed_env: this transaction envelope returns with the added signature of the escrow_signer
 
 * after the buyers wallet recieves the escrow_server results from the above it can now notify the user of the buyer wallet to confirm the purchase payment to fully fund the escrow account with a transaction, then it sends the last restclient message to the store with this info:
 
  b64_timed_env: the same value that the escrow sever returned to the buyers wallet
+
  escrow_tx_id: the tx_id returned from the escrow server that can now be used to query the transaction at the escrow server side.
+
  tx_tag: the store transaction id that this payment is attached to.
 
-* When the store recieves the above from they buyers wallet, it can now verify the escrow_holding_publicId account has the needed funding for the purchase. if so it can update the customers transaction status to processing and starts shipment procedures.
+* When the store recieves the above from they buyers wallet, it can now verify the escrow_holding_publicId account has the needed funding for the purchase. if funding is seen it can update the customers transaction status to processing and starts shipment procedures.
 
 * After the customer receives his package and is satisfied with the product or service, he/she has the option to send the store a transaction to merge the escrow account with the stores general account and optionaly a secound opp that returns the XLM funds back to the buyer that steup the transaction and maybe some part sent as a fee to the escrow service.
 
