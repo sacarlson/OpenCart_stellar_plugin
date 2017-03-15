@@ -7,7 +7,8 @@
 <div>
 <p> <?php echo $text_click_link; ?> </p><br />
 
-<h3> <?php echo $qrcode_link_v2; ?> </h3><br />
+<a href="<?php echo $qrcode_url_v2; ?>">
+<img border="0" alt="W3Schools" src="image/payment/stellar_net/pay_my_wallet.png" ></a>
 
 <p><?php echo $text_or_scan ?></p><br /> 
 <?php echo $qrcode_v2?><br />

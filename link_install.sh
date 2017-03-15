@@ -19,3 +19,6 @@ ln -srf ./upload/catalog/view/javascript/qrcode ./catalog/view/javascript/qrcode
 mv ./catalog/controller/common/header.php ./catalog/controller/common/header.php.org
 ln -srf ./upload/catalog/controller/common/header.php ./catalog/controller/common/header.php
 
+mkdir -p ./image/payment/stellar_net
+ln -srf ./upload/image/payment/stellar_net/pay_my_wallet.png ./image/payment/stellar_net/pay_my_wallet.png
+
