@@ -7,12 +7,15 @@
 <div>
 <p> <?php echo $text_click_link; ?> </p><br />
 
-<a href="<?php echo $qrcode_url_v2; ?>">
+<a href="<?php echo $qrcode_url_v2; ?>" target="_blank">
 <img border="0" alt="W3Schools" src="image/payment/stellar_net/pay_my_wallet.png" ></a>
 
 <p><?php echo $text_or_scan ?></p><br /> 
 <?php echo $qrcode_v2?><br />
-<div id="qrcode" style="width:300px; height:300px; margin-top:15px;"></div>
+
+<a href="<?php echo $qrcode_url_v2; ?>" target="_blank"><img id="qrcode" style="width:300px; height:300px; margin-top:15px;"/></a>
+
+
 <script type="text/javascript">
 $( document ).ready(function () {
     
