@@ -3,7 +3,7 @@
 ### Details about OpenCart ###
 You will need to install OpenCart to use this payment plugin.  For details on how to download, install and detailed documentation see: https://www.opencart.com/.  to download: https://www.opencart.com/index.php?route=cms/download.  Note this plugin was write to support OpenCart version: 2.3.0.2.  The plugin has not been tested on any other version.
 
-### How to install Stellar Payment Plugin###
+### How to install Stellar Payment Plugin ###
 Basic install copy upload dir in this distribution to the base dir of your pre-installed and running OpenCart.  Also copy install.sh script to the base dir.  cd into base dir and run the script.  This will just copy the files from the ./upload directory into the base install.  You can choose to manually copy each file to it's location if you so desire.
 
 I also created a link_install.sh that does much the same as install.sh but just creates symbolic links to the locations needed from the ./upload dir at the base.  This was created to aid in development so you can just copy your upload dir into base and it will already be linked into the system.  I can also edit these files, test them and later make them a distribution while still in place and operational.
@@ -12,7 +12,7 @@ Another aid in development was the make_quckview_links.sh that makes it so I don
 
 I'm sure there are other simpler ways to install OpenCart packages but I'm new to opencart so I just haven't learned it yet.  If you have other better methods of install feel free to drop us a line or PR this doc or whatever else is needed to change.  Later I'll have it so you can install it from the admin console if it won't already if you zip the upload dir. 
 
-### Post Install setup and transactions###
+### Post Install setup and transactions ###
 See [wiki_link](https://github.com/sacarlson/OpenCart_stellar_plugin/wiki) for screen shots of post install setup of OpenCart Stellar.org Payment Plugin and transactions as seen by a customer.
  
 After the files are installed you should see Stellar Payment as an option in admin extension payment on your installed OpenCart.  Click the install button at the end of the line.  Then click edit.  The options are now shown to be filled for the stellar payment settings of your store.
@@ -31,7 +31,20 @@ TestNet Mode: When set to "Yes" the customer will see the checkout display that 
 Note: For other values bellow TestNet value, use the OpenCart docs for clearification or leave them defaulted.
 
 ### QR-code as payment option ###
-We now have QR-code on checkout working. This sets up the My_wallet web app or other device with all the info needed to make payments using for example an android app wallet that can read the my_wallet stellar.org QR-code payment format.  There is at this point no standardized QR-code format for stellar transaction,  so for other stellar wallets, you may still have to enter the information into your wallet manualy or with cut and paste.  As we start seeing other qr-code formats in stellar wallets that work, we can later add them as options at checkout. When we finnaly have standardization on QR-code formats we will only need one.  The Qr-code format will also later need to support the setup of escrow that we will discuse here later. 
+We now have QR-code on checkout working. This sets up payments with supported stellar.org wallets including My_wallet web app and the Stargazer wallet android app.
+
+There is at this point no standardized stellar.org QR-code format for stellar transactions,  so for other stellar wallets that we don't yet support yet, you may still have to enter the purchase information into your wallet manualy or with cut and paste from info provided at checkout.  As we continue to seeing other qr-code formats in stellar wallets that work, we can add them as options at checkout. When we finnaly have standardization on QR-code formats we will only need one.  The Qr-code format will also later need to support the setup of escrow that we will discuse here later.
+
+The present qr-code format include:
+Ver 1.0: this is the first original version supported by my_walled web app. This format continues to be supported by my_wallet but the prefered my_wallet version at present is Ver 2.1.
+
+Ver 2.0: this was the next step in evulution of the My_wallet protocol that now fetches details of transactions with webhook callback instead of providing the information directly in the qr-code and or URL link.  This makes for a much smaller qr-code that makes for easy reading by a cheap web camera.
+
+Ver 2.1:  This version is much like version 2.1 but now the callback return info is rendered in the a format developed for stargazer.  At present we feel this is the best choice for default.
+
+Ver 2.2: This version is what we named the present released stargazer qr-code format.  This version puts all the info of the transaction into the qr-code itself.  This makes for much larger more complex qr-code images that at times may be difficult to read with poor cams and bad envirnmental conditions.  We still fell Ver 2.1 a better choice of formats at this time for this reason. The Version number was created by me just so we can track and select it's usage in our apps.
+
+Note: all the formats above in both qr-code and URL link mode method are supported by the presently released my_wallet web app that decodes all the above V1.0 - V2.2.
 
 
 ### Stellar Bridge setup and config ###
