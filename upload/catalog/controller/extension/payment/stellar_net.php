@@ -36,15 +36,40 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['currency_value'] = $order_info['currency_value'];
         $data['total_currency'] =  $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
         $data['total'] = $order_info['total'];
-        $data['qrcode_json'] = '%7B%22destination%22:%22' . $data['stellar_net_publicid'] . '%22,%22amount%22:%22' . $data['total'] . '%22,%22asset%22:%22' . $data['asset_code'] . '%22,%22issuer%22:%22' . $data['issuer'] . '%22,%22memo%22:%22' . $data['order_id'] . '%22%7D';
+        $data['qrcode_v1'] = '%7B%22destination%22:%22' . $data['stellar_net_publicid'] . '%22,%22amount%22:%22' . $data['total'] . '%22,%22asset%22:%22' . $data['asset_code'] . '%22,%22issuer%22:%22' . $data['issuer'] . '%22,%22memo%22:%22' . $data['order_id'] . '%22%7D';
        
         $data['wallet_url'] = $this->config->get('stellar_net_wallet_url');
                         
         $data['qrcode_v2'] = '%7B%22tx_tag%22:%22' . $data['order_id'] . '%22,%22callback%22:%22' . $data['callback_url'] . '%22,%22ver%22:%222.0%22%7D';
+        $data['qrcode_v2_1'] = '%7B%22tx_tag%22:%22' . $data['order_id'] . '%22,%22callback%22:%22' . $data['callback_url'] . '%22,%22ver%22:%222.1%22%7D';
         $data['qrcode_url'] = $data['wallet_url'] . '/?json=' . $data['qrcode_json'];		
         $data['qrcode_url_v2'] = $data['wallet_url'] . '/?json=' . $data['qrcode_v2'];
         $data['qrcode_link'] = '<a href="' . $data['qrcode_url'] . '" target="_blank"> Pay with My_wallet</a>';
         $data['qrcode_link_v2'] = '<a href="' . $data['qrcode_url_v2'] . '" target="_blank"> Pay with My_wallet</a>';
+        $sg = new \stdClass();
+        $sg->stellar = new \stdClass();
+        $sg->stellar->payment = new \stdClass();
+        $sg->stellar->payment->destination = $data['stellar_net_publicid'];
+        if ($data['testmode']=="Yes"){
+          $sg->stellar->payment->network = "cee0302d";
+        } else {
+          $sg->stellar->payment->network = "7ac33997";
+        }
+        $sg->stellar->payment->amount = $data['total'];
+        $sg->stellar->payment->asset = new \stdClass();
+        $sg->stellar->payment->asset->code = $data['asset_code'];
+        $sg->stellar->payment->asset->issuer = $data['issuer'];
+        $sg->stellar->payment->memo = new \stdClass();
+        $sg->stellar->payment->memo->type = "text";
+        $sg->stellar->payment->memo->value = $data['order_id'];
+        //$data['stargazer_qrcode_json'] = json_encode($sg);
+        
+        // v2.2 stargazer with added urlencoding
+        $data['qrcode_v2_2'] = urlencode(json_encode($sg));
+        // v2.3 should be compatible with stargazer wallet , can't use this causes problem in php code
+        $data['qrcode_v2_3'] = json_encode($sg);
+        $data['stargazer_qrcode_obj'] = $sg;
+        
         return $this->load->view('extension/payment/stellar_net', $data);
 	}
 
@@ -66,8 +91,9 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 	}
 
    public function get_tx() {
-     // http://b.funtracker.site/store/?route=extension/payment/stellar_net/get_tx&tx_tag=1
+     // http://b.funtracker.site/store/?route=extension/payment/stellar_net/get_tx&tx_tag=1&ver=2.1
      // returns: %7B%22destination%22:%22GDUPQLNDVSUKJ4XKQQDITC7RFYCJTROCR6AMUBAMPGBIZXQU4UTAGX7C%22,%22amount%22:%2285.0000%22,%22asset%22:%22USD%22,%22issuer%22:%22GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGSNFHEYVXM3XOJMDS674JZ%22,%22memo%22:%221%22%7D
+     // if ver = "2.1" we output stargazer json format
      $this->load->model('checkout/order');
      //$data['base_url'] = $this->config->get('config_url');
      //echo "base URL: " . $data['base_url'];
@@ -78,13 +104,41 @@ class ControllerExtensionPaymentStellarNet extends Controller {
        echo "bad tx_tag";
        return;
      }
+     
      $order_info = $this->model_checkout_order->getOrder($data['order_id']);
+     $data['testmode'] = $this->config->get('stellar_net_testnet_mode');
      $data['stellar_net_publicid'] = $this->config->get('stellar_net_publicid');
      $data['asset_code'] = $this->config->get('stellar_net_asset_code');
      $data['issuer'] = $this->config->get('stellar_net_issuer');
      $data['total'] = $order_info['total'];
      $data['qrcode_json'] = '%7B%22destination%22:%22' . $data['stellar_net_publicid'] . '%22,%22amount%22:%22' . $data['total'] . '%22,%22asset%22:%22' . $data['asset_code'] . '%22,%22issuer%22:%22' . $data['issuer'] . '%22,%22memo%22:%22' . $data['order_id'] . '%22%7D';
-     echo $data['qrcode_json'];
+     $sg = new \stdClass();
+        $sg->stellar = new \stdClass();
+        $sg->stellar->payment = new \stdClass();
+        $sg->stellar->payment->destination = $data['stellar_net_publicid'];
+        if ($data['testmode'] == "Yes"){
+          $sg->stellar->payment->network = "cee0302d";
+        } else {
+          $sg->stellar->payment->network = "7ac33997";
+        }
+        $sg->stellar->payment->amount = $data['total'];
+        $sg->stellar->payment->asset = new \stdClass();
+        $sg->stellar->payment->asset->code = $data['asset_code'];
+        $sg->stellar->payment->asset->issuer = $data['issuer'];
+        $sg->stellar->payment->memo = new \stdClass();
+        $sg->stellar->payment->memo->type = "text";
+        $sg->stellar->payment->memo->value = $data['order_id'];
+        $data['stargazer_qrcode_json'] = json_encode($sg);
+     if (isset($this->request->get['ver'])) {
+       if ($this->request->get['ver'] == "2.1") {
+         echo $data['stargazer_qrcode_json'];
+       }else{
+         echo $data['qrcode_json'];
+       }
+     }else {
+       echo $data['qrcode_json'];
+     }
+     
    }
 
    public function callback() {

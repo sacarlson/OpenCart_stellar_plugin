@@ -31,7 +31,7 @@ TestNet Mode: When set to "Yes" the customer will see the checkout display that 
 Note: For other values bellow TestNet value, use the OpenCart docs for clearification or leave them defaulted.
 
 ### QR-code as payment option ###
-We now have QR-code on checkout working. This sets up the My_wallet web app or other device with all the info needed to make payments using for example an android app wallet that can read the my_wallet stellar.org QR-code payment format.  There is at this point no standardized QR-code format for stellar transaction,  so for other stellar wallets, you may still have to enter the information into your wallet manualy or with cut and paste.  As we start seeing other qr-code formats in stellar wallets that work, we can later add them as options at checkout. When we finnaly standardization on QR-code formats we will only need one.  The Qr-code format will also later need to support the setup of escrow that we will discuse here later. 
+We now have QR-code on checkout working. This sets up the My_wallet web app or other device with all the info needed to make payments using for example an android app wallet that can read the my_wallet stellar.org QR-code payment format.  There is at this point no standardized QR-code format for stellar transaction,  so for other stellar wallets, you may still have to enter the information into your wallet manualy or with cut and paste.  As we start seeing other qr-code formats in stellar wallets that work, we can later add them as options at checkout. When we finnaly have standardization on QR-code formats we will only need one.  The Qr-code format will also later need to support the setup of escrow that we will discuse here later. 
 
 
 ### Stellar Bridge setup and config ###
