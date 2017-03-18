@@ -36,13 +36,16 @@ We now have QR-code on checkout working. This sets up payments with supported st
 There is at this point no standardized stellar.org QR-code format for stellar transactions,  so for other stellar wallets that we don't yet support yet, you may still have to enter the purchase information into your wallet manualy or with cut and paste from info provided at checkout.  As we continue to seeing other qr-code formats in stellar wallets that work, we can add them as options at checkout. When we finnaly have standardization on QR-code formats we will only need one.  The Qr-code format will also later need to support the setup of escrow that we will discuse here later.
 
 The present qr-code format include:
+
 Ver 1.0: this is the first original version supported by my_walled web app. This format continues to be supported by my_wallet but the prefered my_wallet version at present is Ver 2.1.
 
 Ver 2.0: this was the next step in evulution of the My_wallet protocol that now fetches details of transactions with webhook callback instead of providing the information directly in the qr-code and or URL link.  This makes for a much smaller qr-code that makes for easy reading by a cheap web camera.
 
 Ver 2.1:  This version is much like version 2.1 but now the callback return info is rendered in the a format developed for stargazer.  At present we feel this is the best choice for default.
 
-Ver 2.2: This version is what we named the present released stargazer qr-code format.  This version puts all the info of the transaction into the qr-code itself.  This makes for much larger more complex qr-code images that at times may be difficult to read with poor cams and bad envirnmental conditions.  We still fell Ver 2.1 a better choice of formats at this time for this reason. The Version number was created by me just so we can track and select it's usage in our apps.
+Ver 2.2: This version is what we named the present released stargazer qr-code format with added URL encoding . URL encoding replaces the characters {} and spaces and quotes from the json string for URL link usage and other usages.  This version puts all the info of the transaction into the qr-code itself.  This makes for much larger more complex qr-code images that at times may be difficult to read with poor cams and bad envirnmental conditions.  We still fell Ver 2.1 a better choice of formats at this time for this reason. The Version number was created by me just so we can track and select it's usage in our apps.
+
+Ver 2.3: this is the same as Ver 2.2 with no added URL encoding.  This maybe the only format that will work on the present release of stargazer.  But at this time we have failed to get this method integrated into the payment system due to our lack of knowledge with integration of PHP and javascript coding needed in the final view page. but maybe soon.
 
 Note: all the formats above in both qr-code and URL link mode method are supported by the presently released my_wallet web app that decodes all the above V1.0 - V2.2.
 

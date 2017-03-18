@@ -10,7 +10,7 @@ $_['text_amount']				= ' For the Amount: ';
 $_['text_asset_code']		    = ' Asset Code: ';
 $_['text_issuer']		        = ' Issuer PublicId: ';
 $_['text_click_link']		    = ' Click Link bellow to setup payment with the My_wallet Stellar.org Net web wallet app: ';
-$_['text_or_scan']              = ' Or scan QR-code with My_wallet QR-code scanner or compatible Stellar.org Net wallet';
+$_['text_or_scan']              = ' Or scan QR-code using the <a href="https://github.com/johansten/stargazer" target="_blank"> Stargazer </a> android app wallet (use QR-code V2.3 for Stargazer) or <a href="https://www.funtracker.site/qr_decode/index.html" target="_blank"> My_wallet QR-code scanner</a> or any other compatible Stellar.org Net wallet that reads QR-code transactions';
 $_['text_memo']                 = ' Memo: ';
 $_['text_testmode']             = ' System is now in stellar.org TestNet mode (not real money) ';
 
@@ -19,3 +19,6 @@ $_['text_success']				= '... your payment was successfully received.';
 $_['text_success_wait']			= '<b><span style="color: #FF0000">Please wait...</span></b> whilst we finish processing your order.<br>If you are not automatically re-directed in 10 seconds, please click <a href="%s">here</a>.';
 $_['text_failure']				= '... Your payment has been cancelled!';
 $_['text_failure_wait']			= '<b><span style="color: #FF0000">Please wait...</span></b><br>If you are not automatically re-directed in 10 seconds, please click <a href="%s">here</a>.';
+
+
+

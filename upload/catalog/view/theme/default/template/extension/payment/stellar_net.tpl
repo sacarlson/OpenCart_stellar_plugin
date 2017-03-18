@@ -11,14 +11,16 @@
 <a href="<?php echo $qrcode_url_v2; ?>" target="_blank">
 <img border="0" alt="W3Schools" src="image/payment/stellar_net/pay_my_wallet.png" ></a>
 
-<p><?php echo $text_or_scan ?></p><br />
+<br /><br /><p><?php echo $text_or_scan ?></p><br />
  
   <label for="qrcode_ver">Select Stellar.org QR-Code Version (default 2.1)</label>
-  <select name="qrcode_ver" id="qrcode_ver" value='2.1'>
+  <select name="qrcode_ver" id="qrcode_ver" >
+    <option selected disabled>Choose QR-Code Version</option>
     <option>1.0</option>
     <option>2.0</option>
     <option>2.1</option> 
-    <option>2.2</option> 
+    <option>2.2</option>
+    <option>2.3</option>  
   </select><br />
 
 
@@ -33,7 +35,7 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 	height : 300
 });
 //qrcode.makeCode("<?php echo $qrcode_json; ?>");
-qrcode.makeCode("<?php echo $qrcode_v2; ?>");
+qrcode.makeCode("<?php echo $qrcode_v2_1; ?>");
 
 qrcode_ver.onchange=function(){ //run some code when "onchange" event fires
         var chosenoption=this.options[this.selectedIndex]; //this refers to "selectmenu"
@@ -50,14 +52,16 @@ qrcode_ver.onchange=function(){ //run some code when "onchange" event fires
             qrcode.makeCode("<?php echo $qrcode_v2_1; ?>");
           }else if (chosenoption.value == "2.2"){
             qrcode.makeCode("<?php echo $qrcode_v2_2; ?>");
-          }     
+          }else if (chosenoption.value == "2.3"){
+            qrcode.makeCode('<?php echo $qrcode_v2_3; ?>');
+          }      
         }
       }
 
 });
 </script>
 
-<p>  <?php echo $text_or_send; ?>   </p>
+<br /><p>  <?php echo $text_or_send; ?>   </p>
 <h3> <?php echo $text_to_PublicId; ?> <?php echo $stellar_net_publicid; ?></h3>
 <h3> <?php echo $text_amount; ?> <?php echo $total; ?></h3>
 <h3> <?php echo $text_asset_code; ?> <?php echo $asset_code; ?></h3>
