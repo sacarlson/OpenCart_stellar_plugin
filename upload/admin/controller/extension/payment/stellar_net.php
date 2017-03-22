@@ -36,6 +36,10 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 		$data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
 		$data['entry_status'] = $this->language->get('entry_status');
 		$data['entry_sort_order'] = $this->language->get('entry_sort_order');
+        $data['entry_escrows_publicId'] = $this->language->get('entry_escrows_publicId');
+        $data['entry_escrows_email'] = $this->language->get('entry_escrows_email');
+        $data['entry_enable_escrow'] = $this->language->get('entry_enable_escrow');
+        $data['entry_escrow_expire_hours'] = $this->language->get('entry_escrow_expire_hours');
 
 		$data['help_total'] = $this->language->get('help_total');
         $data['help_asset_code'] = $this->language->get('help_asset_code');
@@ -44,6 +48,10 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['help_wallet_url'] = $this->language->get('help_wallet_url');
         $data['help_tx_callback_token'] = $this->language->get('help_tx_callback_token');
         $data['help_testnet_mode'] = $this->language->get('help_testnet_mode');
+        $data['help_escrows_publicId'] = $this->language->get('help_escrows_publicId');
+        $data['help_escrows_email'] = $this->language->get('help_escrows_email');
+        $data['help_enable_escrow'] = $this->language->get('help_enable_escrow');
+        $data['help_escrow_expire_hours'] = $this->language->get('help_escrow_expire_hours');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -104,6 +112,27 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 			$data['stellar_net_tx_callback_token'] = $this->config->get('stellar_net_tx_callback_token');
 		}
 
+        if (isset($this->request->post['stellar_net_escrows_email'])) {
+			$data['stellar_net_escrows_email'] = $this->request->post['stellar_net_escrows_email'];
+		} else {
+			$data['stellar_net_escrows_email'] = $this->config->get('stellar_net_escrows_email');
+		}
+
+        if (isset($this->request->post['stellar_net_escrows_publicId'])) {
+			$data['stellar_net_escrows_publicId'] = $this->request->post['stellar_net_escrows_publicId'];
+		} else {
+			$data['stellar_net_escrows_publicId'] = $this->config->get('stellar_net_escrows_publicId');
+		}
+        if (isset($this->request->post['stellar_net_enable_escrow'])) {
+			$data['stellar_net_enable_escrow'] = $this->request->post['stellar_net_enable_escrow'];
+		} else {
+			$data['stellar_net_enable_escrow'] = $this->config->get('stellar_net_enable_escrow');
+		}
+        if (isset($this->request->post['stellar_net_escrow_expire_hours'])) {
+			$data['stellar_net_escrow_expire_hours'] = $this->request->post['stellar_net_escrow_expire_hours'];
+		} else {
+			$data['stellar_net_escrow_expire_hours'] = $this->config->get('stellar_net_escrow_expire_hours');
+		}
         if (isset($this->request->post['stellar_net_testnet_mode'])) {
 			$data['stellar_net_testnet_mode'] = $this->request->post['stellar_net_testnet_mode'];
 		} else {

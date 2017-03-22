@@ -13,6 +13,11 @@ $_['text_click_link']		    = ' Click Link bellow to setup payment with the My_wa
 $_['text_or_scan']              = ' Or scan QR-code using the <a href="https://github.com/johansten/stargazer" target="_blank"> Stargazer </a> android app wallet (use QR-code V2.3 for Stargazer) or <a href="https://www.funtracker.site/qr_decode/index.html" target="_blank"> My_wallet QR-code scanner</a> or any other compatible Stellar.org Net wallet that reads QR-code transactions';
 $_['text_memo']                 = ' Memo: ';
 $_['text_testmode']             = ' System is now in stellar.org TestNet mode (not real money) ';
+$_['text_for_escrow_select']    = ' for Escrow Mode select QR-code/URL link version 3.0 bellow, At present escrow mode is only supported using My_wallet web wallet app, Note adding escrow may also add fees to your purchase.';
+$_['text_escrow_signer_publicId']    = 'Escrow Signer PublicId';
+$_['text_escrow_agent_email'] = 'Escrow Agent Email';
+$_['text_escrow_fee'] = 'Escrow Fee';
+$_['text_escrow_expires_on'] = 'Escrow Expires On';
 
 $_['text_response']				= 'Response from Stellar.org Net:';
 $_['text_success']				= '... your payment was successfully received.';

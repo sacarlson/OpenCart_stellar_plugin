@@ -7,11 +7,28 @@
 <div>
 <p> <?php echo $text_click_link; ?> </p><br />
 
-
-<a href="<?php echo $qrcode_url_v2; ?>" target="_blank">
+<?php
+  if ($enable_escrow == 'Yes'){
+    echo "qrcde_url_v3: " . $qrcode_url_v3 . "<br />"; 
+    echo '<a href="' . $qrcode_url_v3 . '" target="_blank">';
+  }else {
+    echo '<a href="' . $qrcode_url_v2 . '" target="_blank">';
+  }
+?>
 <img border="0" alt="W3Schools" src="image/payment/stellar_net/pay_my_wallet.png" ></a>
 
-<br /><br /><p><?php echo $text_or_scan ?></p><br />
+<br /><br /><p><?php echo $text_or_scan ?></p>
+<?php
+  if ($enable_escrow == 'Yes'){
+    echo "<p>" . $text_for_escrow_select ."</p><br />";
+    echo "<h4>" .$text_escrow_signer_publicId.": " . $escrows_publicId . "</h4>";
+    echo "<h4>" .$text_escrow_agent_email .": " . $escrows_email . "</h4>";
+    echo "<h4>" .$text_escrow_fee . ": " . $escrow_fee_xlm . " XLM  </h4>";
+    echo "<h4>" .$text_escrow_expires_on. ": ". $escrow_expires_dt . "  </h4>";
+   
+  }
+?>
+<br />
  
   <label for="qrcode_ver">Select Stellar.org QR-Code Version (default 2.1)</label>
   <select name="qrcode_ver" id="qrcode_ver" >
@@ -20,7 +37,12 @@
     <option>2.0</option>
     <option>2.1</option> 
     <option>2.2</option>
-    <option>2.3</option>  
+    <option>2.3</option> 
+<?php
+  if ($enable_escrow == 'Yes'){
+    echo '<option>3.0</option> ';
+  }
+?>
   </select><br />
 
 
@@ -54,7 +76,9 @@ qrcode_ver.onchange=function(){ //run some code when "onchange" event fires
             qrcode.makeCode("<?php echo $qrcode_v2_2; ?>");
           }else if (chosenoption.value == "2.3"){
             qrcode.makeCode('<?php echo $qrcode_v2_3; ?>');
-          }      
+          }else if (chosenoption.value == "3.0"){
+            qrcode.makeCode('<?php echo $qrcode_v3_0; ?>');
+          }           
         }
       }
 
@@ -62,11 +86,11 @@ qrcode_ver.onchange=function(){ //run some code when "onchange" event fires
 </script>
 
 <br /><p>  <?php echo $text_or_send; ?>   </p>
-<h3> <?php echo $text_to_PublicId; ?> <?php echo $stellar_net_publicid; ?></h3>
-<h3> <?php echo $text_amount; ?> <?php echo $total; ?></h3>
-<h3> <?php echo $text_asset_code; ?> <?php echo $asset_code; ?></h3>
-<h3> <?php echo $text_issuer; ?> <?php echo $issuer; ?></h3>
-<h3> <?php echo $text_memo; ?> <?php echo $order_id; ?></h3>
+<h4> <?php echo $text_to_PublicId; ?> <?php echo $stellar_net_publicid; ?></h4>
+<h4> <?php echo $text_amount; ?> <?php echo $total; ?></h4>
+<h4> <?php echo $text_asset_code; ?> <?php echo $asset_code; ?></h4>
+<h4> <?php echo $text_issuer; ?> <?php echo $issuer; ?></h4>
+<h4> <?php echo $text_memo; ?> <?php echo $order_id; ?></h4>
 </div>
 
 <div class="buttons">

@@ -26,39 +26,64 @@
       <div class="panel-body">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-stellar_net" class="form-horizontal">
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_publicid; ?>"><?php echo $entry_publicid; ?></span></label>
+            <label class="col-sm-2 control-label" for="stellar_net_publicid"><span data-toggle="tooltip" title="<?php echo $help_publicid; ?>"><?php echo $entry_publicid; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="stellar_net_publicid" value="<?php echo $stellar_net_publicid; ?>" placeholder="<?php echo $entry_publicid; ?>" id="input-total" class="form-control" />
+              <input type="text" name="stellar_net_publicid" value="<?php echo $stellar_net_publicid; ?>" placeholder="<?php echo $entry_publicid; ?>" id="stellar_net_publicid" class="form-control" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_asset_code; ?>"><?php echo $entry_asset_code; ?></span></label>
+            <label class="col-sm-2 control-label" for="stellar_net_asset_code"><span data-toggle="tooltip" title="<?php echo $help_asset_code; ?>"><?php echo $entry_asset_code; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="stellar_net_asset_code" value="<?php echo $stellar_net_asset_code; ?>" placeholder="<?php echo $entry_asset_code; ?>" id="input-total" class="form-control" />
+              <input type="text" name="stellar_net_asset_code" value="<?php echo $stellar_net_asset_code; ?>" placeholder="<?php echo $entry_asset_code; ?>" id="stellar_net_asset_code" class="form-control" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_issuer; ?>"><?php echo $entry_issuer; ?></span></label>
+            <label class="col-sm-2 control-label" for="stellar_net_issuer"><span data-toggle="tooltip" title="<?php echo $help_issuer; ?>"><?php echo $entry_issuer; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="stellar_net_issuer" value="<?php echo $stellar_net_issuer; ?>" placeholder="<?php echo $entry_issuer; ?>" id="input-total" class="form-control" />
+              <input type="text" name="stellar_net_issuer" value="<?php echo $stellar_net_issuer; ?>" placeholder="<?php echo $entry_issuer; ?>" id="stellar_net_issuer" class="form-control" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_wallet_url; ?>"><?php echo $entry_wallet_url; ?></span></label>
+            <label class="col-sm-2 control-label" for="stellar_net_wallet_url"><span data-toggle="tooltip" title="<?php echo $help_wallet_url; ?>"><?php echo $entry_wallet_url; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="stellar_net_wallet_url" value="<?php echo $stellar_net_wallet_url; ?>" placeholder="<?php echo $entry_wallet_url; ?>" id="input-total" class="form-control" />
+              <input type="text" name="stellar_net_wallet_url" value="<?php echo $stellar_net_wallet_url; ?>" placeholder="<?php echo $entry_wallet_url; ?>" id="stellar_net_wallet_url" class="form-control" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_tx_callback_token; ?>"><?php echo $entry_tx_callback_token; ?></span></label>
+            <label class="col-sm-2 control-label" for="stellar_net_tx_callback_token"><span data-toggle="tooltip" title="<?php echo $help_tx_callback_token; ?>"><?php echo $entry_tx_callback_token; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="stellar_net_tx_callback_token" value="<?php echo $stellar_net_tx_callback_token; ?>" placeholder="<?php echo $entry_tx_callback_token; ?>" id="input-total" class="form-control" />
+              <input type="text" name="stellar_net_tx_callback_token" value="<?php echo $stellar_net_tx_callback_token; ?>" placeholder="<?php echo $entry_tx_callback_token; ?>" id="stellar_net_tx_callback_token" class="form-control" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_testnet_mode; ?>"><?php echo $entry_testnet_mode; ?></span></label>
+            <label class="col-sm-2 control-label" for="stellar_net_testnet_mode"><span data-toggle="tooltip" title="<?php echo $help_testnet_mode; ?>"><?php echo $entry_testnet_mode; ?></span></label>
             <div class="col-sm-10">
-              <input type="text" name="stellar_net_testnet_mode" value="<?php echo $stellar_net_testnet_mode; ?>" placeholder="<?php echo $entry_testnet_mode; ?>" id="input-total" class="form-control" />
+              <input type="text" name="stellar_net_testnet_mode" value="<?php echo $stellar_net_testnet_mode; ?>" placeholder="<?php echo $entry_testnet_mode; ?>" id="stellar_net_testnet_mode" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="stellar_net_escrows_publicId"><span data-toggle="tooltip" title="<?php echo $help_escrows_publicId; ?>"><?php echo $entry_escrows_publicId; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_escrows_publicId" value="<?php echo $stellar_net_escrows_publicId; ?>" placeholder="<?php echo $entry_escrows_publicId; ?>" id="stellar_net_escrows_publicId" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="stellar_net_escrows_email"><span data-toggle="tooltip" title="<?php echo $help_escrows_email; ?>"><?php echo $entry_escrows_email; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_escrows_email" value="<?php echo $stellar_net_escrows_email; ?>" placeholder="<?php echo $entry_escrows_email; ?>" id="stellar_net_escrows_email" class="form-control" />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="stellar_net_escrow_expire_hours"><span data-toggle="tooltip" title="<?php echo $help_escrow_expire_hours; ?>"><?php echo $entry_escrow_expire_hours; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_escrow_expire_hours" value="<?php echo $stellar_net_escrow_expire_hours; ?>" placeholder="<?php echo $entry_escrow_expire_hours; ?>" id="stellar_net_escrow_expire_hours" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="stellar_net_enable_escrow"><span data-toggle="tooltip" title="<?php echo $help_enable_escrow; ?>"><?php echo $entry_enable_escrow; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_enable_escrow" value="<?php echo $stellar_net_enable_escrow; ?>" placeholder="<?php echo $entry_enable_escrow; ?>" id="stellar_net_enable_escrow" class="form-control" />
             </div>
           </div>
           <div class="form-group">

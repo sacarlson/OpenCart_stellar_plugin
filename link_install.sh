@@ -2,6 +2,7 @@ ln -srf  ./upload/admin/controller/extension/payment/stellar_net.php ./admin/con
 
 ln -srf ./upload/admin/language/en-gb/extension/payment/stellar_net.php ./admin/language/en-gb/extension/payment/stellar_net.php
 
+ln -srf ./upload/admin/model/extension/payment/stellar_net.php ./admin/model/extension/payment/stellar_net.php
 
 ln -srf ./upload/admin/view/template/extension/payment/stellar_net.tpl ./admin/view/template/extension/payment/stellar_net.tpl
 
