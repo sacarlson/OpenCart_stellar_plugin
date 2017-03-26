@@ -1,6 +1,6 @@
 <h2> <?php echo $text_title; ?> </h2>
 <?php
-  if ($testmode == 'Yes'){
+  if ($testmode == '1'){
     echo '    <h2>'.$text_testmode . "</h2>";
   }
 ?>
@@ -8,8 +8,7 @@
 <p> <?php echo $text_click_link; ?> </p><br />
 
 <?php
-  if ($enable_escrow == 'Yes'){
-    echo "qrcde_url_v3: " . $qrcode_url_v3 . "<br />"; 
+  if ($enable_escrow == '1'){    
     echo '<a href="' . $qrcode_url_v3 . '" target="_blank">';
   }else {
     echo '<a href="' . $qrcode_url_v2 . '" target="_blank">';
@@ -19,7 +18,7 @@
 
 <br /><br /><p><?php echo $text_or_scan ?></p>
 <?php
-  if ($enable_escrow == 'Yes'){
+  if ($enable_escrow == '1'){
     echo "<p>" . $text_for_escrow_select ."</p><br />";
     echo "<h4>" .$text_escrow_signer_publicId.": " . $escrows_publicId . "</h4>";
     echo "<h4>" .$text_escrow_agent_email .": " . $escrows_email . "</h4>";
@@ -39,14 +38,19 @@
     <option>2.2</option>
     <option>2.3</option> 
 <?php
-  if ($enable_escrow == 'Yes'){
+  if ($enable_escrow == '1'){
     echo '<option>3.0</option> ';
   }
 ?>
   </select><br />
 
-
-<a href="<?php echo $qrcode_url_v2; ?>" target="_blank"><img id="qrcode" style="width:300px; height:300px; margin-top:15px;"/></a>
+<?php
+if ($enable_escrow == '1'){   
+    echo '<a href="' . $qrcode_url_v3 . '" target="_blank"><img id="qrcode" style="width:300px; height:300px; margin-top:15px;"/></a>';
+  }else {
+    echo '<a href="' . $qrcode_url_v2 . '" target="_blank"><img id="qrcode" style="width:300px; height:300px; margin-top:15px;"/></a>';
+  }
+?>
 
 
 <script type="text/javascript">

@@ -164,3 +164,31 @@ escrow_expire: timestamp of expire time when the store can recover it's funds wi
 In phase 3 we need a group of 3rd party signers available to be choosen as signers by both the store and the customers.  The store will have an allowed list that it trusts as signers and the customer can select from that list who they want to be as there escrow signer (only one 3rd party signer per transaction to start). 
 
 In the 3rd phase we will need a website that signers sign up to be escrow signers.  This site should also track any problems that people have had dealing with them in the past.  From the signers track records the stores and customers can decide who to trust from the list of signers.  At this stage the escrow signer can also ask for a fee or sign for free at the discretion of the signer. 
+
+## temp bug in install with missing table work around ##
+issuer with install not creating new table oc_stellar_net_order,  temp work around for now is to use phpmyadmin to create it 
+manually.
+
+CREATE TABLE IF NOT EXISTS `oc_stellar_net_order` (
+			  `stellar_net_order_id` int(11) NOT NULL AUTO_INCREMENT,
+			  `order_id` int(11) NOT NULL,
+			  `date_added` DATETIME NOT NULL,
+			  `date_modified` DATETIME NOT NULL,
+			  `capture_status` TEXT DEFAULT NULL,
+			  `currency_code` CHAR(3) NOT NULL,
+              `from_public_id` CHAR(60) NOT NULL,
+              `to_public_id` CHAR(60) NOT NULL,
+              `asset_code` CHAR(20) NOT NULL,
+              `issuer` CHAR(60) NOT NULL,
+              `memo` CHAR(60) NOT NULL,
+              `escrow_b64_tx` TEXT NOT NULL,
+              `escrow_publicId` TEXT NOT NULL,
+              `escrow_expire_ts` DATETIME NOT NULL,
+              `escrow_collected` INT(1) DEFAULT NULL,
+			  `total` DECIMAL( 10, 2 ) NOT NULL,
+			  PRIMARY KEY (`stellar_net_order_id`)
+			) ENGINE=MyISAM DEFAULT COLLATE=utf8_general_ci
+	
+Error seen in var/log/apache2/error.log with this condition is:	
+
+Error: Table 'opencart.oc_stellar_net_order' doesn't exist<br />Error No: 1146<br />SELECT * FROM `oc_stellar_net_order` WHERE `order_id` = '11' in /var/www/funtracker.site/test_store/system/library/db/mysqli.php:40\nStack trace:\n#0 /var/www/funtracker.site/test_store/system/library/db.php(16): DB\\MySQLi->query('SELECT * FROM `...', Array)\n#1 /var/www/funtracker.site/test_store/upload/catalog/controller/extension/payment/stellar_net.php(121): DB->query('SELECT * FROM `...')\n#2 /var/www/funtracker.site/test_store/upload/catalog/controller/extension/payment/stellar_net.php(146): ControllerExtensionPaymentStellarNet->getstellar_netOrder('11')\n#3 /var/www/funtracker.site/test_store/system/engine/action.php(51): ControllerExtensionPaymentStellarNet->get_tx()\n#4 /var/www/funtracker.site/test_store/catalog/controller/startup/router.php(25): Action->execute(Object(Registry))\n#5 /var/www/funtracker.site/test_store/system/engine/action.php(51): ControllerStartupRouter->index()\n#6 /var/www/funtracker. in /var/www/funtracker.site/test_store/system/library/db/mysqli.php on line 40

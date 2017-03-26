@@ -9,7 +9,7 @@ $_['text_to_PublicId']		    = ' To PublicId: ';
 $_['text_amount']				= ' For the Amount: ';
 $_['text_asset_code']		    = ' Asset Code: ';
 $_['text_issuer']		        = ' Issuer PublicId: ';
-$_['text_click_link']		    = ' Click Link bellow to setup payment with the My_wallet Stellar.org Net web wallet app: ';
+$_['text_click_link']		    = ' Click the Big Red "PAY" Button bellow to setup payment with the My_wallet Stellar.org Net web wallet app: ';
 $_['text_or_scan']              = ' Or scan QR-code using the <a href="https://github.com/johansten/stargazer" target="_blank"> Stargazer </a> android app wallet (use QR-code V2.3 for Stargazer) or <a href="https://www.funtracker.site/qr_decode/index.html" target="_blank"> My_wallet QR-code scanner</a> or any other compatible Stellar.org Net wallet that reads QR-code transactions';
 $_['text_memo']                 = ' Memo: ';
 $_['text_testmode']             = ' System is now in stellar.org TestNet mode (not real money) ';

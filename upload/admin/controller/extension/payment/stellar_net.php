@@ -40,6 +40,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['entry_escrows_email'] = $this->language->get('entry_escrows_email');
         $data['entry_enable_escrow'] = $this->language->get('entry_enable_escrow');
         $data['entry_escrow_expire_hours'] = $this->language->get('entry_escrow_expire_hours');
+        $data['entry_escrow_vendor_signer_secret'] = $this->language->get('entry_escrow_vendor_signer_secret');
 
 		$data['help_total'] = $this->language->get('help_total');
         $data['help_asset_code'] = $this->language->get('help_asset_code');
@@ -52,6 +53,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['help_escrows_email'] = $this->language->get('help_escrows_email');
         $data['help_enable_escrow'] = $this->language->get('help_enable_escrow');
         $data['help_escrow_expire_hours'] = $this->language->get('help_escrow_expire_hours');
+        $data['help_escrow_vendor_signer_secret'] = $this->language->get('help_escrow_vendor_signer_secret');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -138,6 +140,13 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 		} else {
 			$data['stellar_net_testnet_mode'] = $this->config->get('stellar_net_testnet_mode');
 		}
+
+        if (isset($this->request->post['stellar_net_escrow_vendor_signer_secret'])) {
+			$data['stellar_net_escrow_vendor_signer_secret'] = $this->request->post['stellar_net_escrow_vendor_signer_secret'];
+		} else {
+			$data['stellar_net_escrow_vendor_signer_secret'] = $this->config->get('stellar_net_escrow_vendor_signer_secret');
+		}
+
 
 		if (isset($this->request->post['stellar_net_total'])) {
 			$data['stellar_net_total'] = $this->request->post['stellar_net_total'];

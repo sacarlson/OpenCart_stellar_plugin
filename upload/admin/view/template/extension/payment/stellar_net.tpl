@@ -55,12 +55,22 @@
               <input type="text" name="stellar_net_tx_callback_token" value="<?php echo $stellar_net_tx_callback_token; ?>" placeholder="<?php echo $entry_tx_callback_token; ?>" id="stellar_net_tx_callback_token" class="form-control" />
             </div>
           </div>
+          
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="stellar_net_testnet_mode"><span data-toggle="tooltip" title="<?php echo $help_testnet_mode; ?>"><?php echo $entry_testnet_mode; ?></span></label>
+            <label class="col-sm-2 control-label" for="stellar_net_testnet_mode"><?php echo $entry_testnet_mode; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="stellar_net_testnet_mode" value="<?php echo $stellar_net_testnet_mode; ?>" placeholder="<?php echo $entry_testnet_mode; ?>" id="stellar_net_testnet_mode" class="form-control" />
+              <select name="stellar_net_testnet_mode" id="stellar_net_testnet_mode" class="form-control">
+                <?php if ($stellar_net_testnet_mode) { ?>
+                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                <option value="0"><?php echo $text_disabled; ?></option>
+                <?php } else { ?>
+                <option value="1"><?php echo $text_enabled; ?></option>
+                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                <?php } ?>
+              </select>
             </div>
           </div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label" for="stellar_net_escrows_publicId"><span data-toggle="tooltip" title="<?php echo $help_escrows_publicId; ?>"><?php echo $entry_escrows_publicId; ?></span></label>
             <div class="col-sm-10">
@@ -73,6 +83,14 @@
               <input type="text" name="stellar_net_escrows_email" value="<?php echo $stellar_net_escrows_email; ?>" placeholder="<?php echo $entry_escrows_email; ?>" id="stellar_net_escrows_email" class="form-control" />
             </div>
           </div>
+
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="stellar_net_escrow_vendor_signer_secret"><span data-toggle="tooltip" title="<?php echo $help_escrow_vendor_signer_secret; ?>"><?php echo $entry_escrow_vendor_signer_secret; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_escrow_vendor_signer_secret" value="<?php echo $stellar_net_escrow_vendor_signer_secret; ?>" placeholder="<?php echo $entry_escrow_vendor_signer_secret; ?>" id="stellar_net_escrow_vendor_signer_secret" class="form-control" />
+            </div>
+          </div>
           
           <div class="form-group">
             <label class="col-sm-2 control-label" for="stellar_net_escrow_expire_hours"><span data-toggle="tooltip" title="<?php echo $help_escrow_expire_hours; ?>"><?php echo $entry_escrow_expire_hours; ?></span></label>
@@ -80,12 +98,22 @@
               <input type="text" name="stellar_net_escrow_expire_hours" value="<?php echo $stellar_net_escrow_expire_hours; ?>" placeholder="<?php echo $entry_escrow_expire_hours; ?>" id="stellar_net_escrow_expire_hours" class="form-control" />
             </div>
           </div>
+
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="stellar_net_enable_escrow"><span data-toggle="tooltip" title="<?php echo $help_enable_escrow; ?>"><?php echo $entry_enable_escrow; ?></span></label>
+            <label class="col-sm-2 control-label" for="stellar_net_enable_escrow"><?php echo $entry_enable_escrow; ?></label>
             <div class="col-sm-10">
-              <input type="text" name="stellar_net_enable_escrow" value="<?php echo $stellar_net_enable_escrow; ?>" placeholder="<?php echo $entry_enable_escrow; ?>" id="stellar_net_enable_escrow" class="form-control" />
+              <select name="stellar_net_enable_escrow" id="stellar_net_enable_escrow" class="form-control">
+                <?php if ($stellar_net_enable_escrow) { ?>
+                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                <option value="0"><?php echo $text_disabled; ?></option>
+                <?php } else { ?>
+                <option value="1"><?php echo $text_enabled; ?></option>
+                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                <?php } ?>
+              </select>
             </div>
           </div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-total"><span data-toggle="tooltip" title="<?php echo $help_total; ?>"><?php echo $entry_total; ?></span></label>
             <div class="col-sm-10">
