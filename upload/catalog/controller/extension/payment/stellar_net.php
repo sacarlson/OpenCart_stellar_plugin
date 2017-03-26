@@ -76,7 +76,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $sg->stellar = new \stdClass();
         $sg->stellar->payment = new \stdClass();
         $sg->stellar->payment->destination = $data['stellar_net_publicid'];
-        if ($data['testmode']=="Yes"){
+        if ($data['testmode']=="1"){
           $sg->stellar->payment->network = "cee0302d";
         } else {
           $sg->stellar->payment->network = "7ac33997";
@@ -175,7 +175,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $sg->stellar = new \stdClass();
         $sg->stellar->payment = new \stdClass();
         $sg->stellar->payment->destination = $data['stellar_net_publicid'];
-        if ($data['testmode'] == "Yes"){
+        if ($data['testmode'] == "1"){
           $sg->stellar->payment->network = "cee0302d";
         } else {
           $sg->stellar->payment->network = "7ac33997";
@@ -188,7 +188,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $sg->stellar->payment->memo->type = "text";
         $sg->stellar->payment->memo->value = $data['order_id'];
         $sg->stellar->payment->order_status = $data['order_status'];
-        if ($data['enable_escrow'] == "Yes"){
+        if ($data['enable_escrow'] == "1"){
           $sg->stellar->payment->escrow = new \stdClass();
           $sg->stellar->payment->escrow->publicId = $data['escrows_publicId'];
           $sg->stellar->payment->escrow->email = $data['escrows_email'];
@@ -286,7 +286,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 
 //addTransaction($order_id, $escrow_b64_tx, $escrow_publicId, $escrow_expire_ts, $total, $status = "0") 
 
-     $this->addTransaction($data['order_id'], $data['b64_timed_tx_env'], $data['escrow_holding_publicId'], $data['escrow_expire_timestamp'], $data['total'],"1");
+     $this->addTransaction($data['order_id'], $data['b64_timed_tx_env'], $data['escrow_holding_publicId'], $data['escrow_expire_timestamp'], $data['total'],"0");
 
      echo "escrow_submit_accepted";
      

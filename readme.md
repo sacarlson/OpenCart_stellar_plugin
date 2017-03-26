@@ -24,9 +24,22 @@ Asset Code:  You will also have to supply the asset_code and the Issuer of the a
 
 Issuer: The PublicId of the issuer of the Asset Code above. At this time we only support acceptance of a single asset/issuer pair in payment.  I assume you can also use XLM as payment, if so I guess Issuer can be left blank (untested).
 
-Wallet URL: This is the URL of the My_wallet that the transaction links point at for example "https://wallet.funtracker.site".
+Wallet URL: This is the URL of the My_wallet that the transaction links point at for example "https://wallet.funtracker.site". be sure not to end with /
 
-TestNet Mode: When set to "Yes" the customer will see the checkout display that the store is in TestNet mode (not real money) used in testing.  In this mode you still have to setup stellar bridge monitor config in testnet mode so that it is listening for transactions on testnet not real Live net. 
+Callback Security Token: just some random leternumber used to secure gateway input example: "abcdsa" 6 to 20 leters is fine.
+
+Escrow Services PublicId: This is the stellar PublicId address of the 3rd party that will be the backup signer in event of a problem bettween vendor and buyer
+
+Escrow Services Email: The contact Email address of the 3rd party Escrow Agent above
+
+Vendor Signer Secret Key: The secret key that will be used to sign timed escrow transaction that will move the funds to the stores publicId. this is not the same address as the store Public, it's just the signer address.
+
+Escrow Expire hours: The number of hours after the purchase the the escrow expires and the timed transaction submited by the customer becomes valid to transact on the stellar network.
+
+Enable Escrow: Enable or Disable the escrow mode.  If set to Disable we run qr_code protocol version 2.0, with escrow mode we run protocol 3.0.
+
+
+TestNet Mode: When set to Enable the customer will see the checkout display that the store is in TestNet mode (not real money) used in testing.  In this mode you still have to setup stellar bridge monitor config in testnet mode so that it is listening for transactions on testnet not real Live net. 
 
 Note: For other values bellow TestNet value, use the OpenCart docs for clearification or leave them defaulted.
 
