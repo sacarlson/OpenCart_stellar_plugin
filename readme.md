@@ -18,30 +18,7 @@ See [wiki_link](https://github.com/sacarlson/OpenCart_stellar_plugin/wiki) for s
 After the files are installed you should see Stellar Payment as an option in admin extension payment on your installed OpenCart.  Click the install button at the end of the line.  Then click edit.  The options are now shown to be filled for the stellar payment settings of your store.
 The values include:
 
-PublicID:  the value customers will use to send payments to your store.
 
-Asset Code:  You will also have to supply the asset_code and the Issuer of the asset code your store will be willing to accept as payments.
-
-Issuer: The PublicId of the issuer of the Asset Code above. At this time we only support acceptance of a single asset/issuer pair in payment.  I assume you can also use XLM as payment, if so I guess Issuer can be left blank (untested).
-
-Wallet URL: This is the URL of the My_wallet that the transaction links point at for example "https://wallet.funtracker.site". be sure not to end with /
-
-Callback Security Token: just some random leternumber used to secure gateway input example: "abcdsa" 6 to 20 leters is fine.
-
-Escrow Services PublicId: This is the stellar PublicId address of the 3rd party that will be the backup signer in event of a problem bettween vendor and buyer
-
-Escrow Services Email: The contact Email address of the 3rd party Escrow Agent above
-
-Vendor Signer Secret Key: The secret key that will be used to sign timed escrow transaction that will move the funds to the stores publicId. this is not the same address as the store Public, it's just the signer address.
-
-Escrow Expire hours: The number of hours after the purchase the the escrow expires and the timed transaction submited by the customer becomes valid to transact on the stellar network.
-
-Enable Escrow: Enable or Disable the escrow mode.  If set to Disable we run qr_code protocol version 2.0, with escrow mode we run protocol 3.0.
-
-
-TestNet Mode: When set to Enable the customer will see the checkout display that the store is in TestNet mode (not real money) used in testing.  In this mode you still have to setup stellar bridge monitor config in testnet mode so that it is listening for transactions on testnet not real Live net. 
-
-Note: For other values bellow TestNet value, use the OpenCart docs for clearification or leave them defaulted.
 
 ### QR-code as payment option ###
 We now have QR-code on checkout working. This sets up payments with supported stellar.org wallets including My_wallet web app and the Stargazer wallet android app.
@@ -75,11 +52,9 @@ The customer should already have the asset issuer set funds needed available in 
 
 how ever it would in theory be posible to perform Path payments within stellar.org net to apply the needed funding to the store account, but I'm not sure how well this feature works at this time (noted some issues people have had using it in the past).  At some point Path Payment might be the standard used in transactions to make for easy invisible currency conversion for users.
  
-
-
 ### Escrow payment option Phase 2 ###
 
-We now have the option for escrow payments working in our present release that at this time only has one entity available as a 3rd party signer that is the Funtracker.site Bank as the 3rd party signer on the stellar.org accounts used in escrow transactions.
+We now have the option for escrow payments working in our present release that at this time only has one entity available as a 3rd party signer that being the Funtracker.site Bank as the 3rd party signer on the stellar.org accounts used in escrow transactions.
 
 In the escrow active mode setable by the store admin, the customer will select the option to accept an escrow payment.  The escrow payment has a settable expiration time window of any number of days selectable by the admin of the store.  It will be a long enuf window of time that the package should reach the intended customer before the expire time.  If the package fails to arive before the expire time the customer will have the option to contact the store and ask for a refund or an extension can be provided on the time window of the escrow if for any reason setup by the vendor with the customer.
 
@@ -194,15 +169,9 @@ http://b.funtracker.site/store/?route=extension/payment/stellar_net/submit_escro
 
 * When the store recieves the above from they buyers wallet, it can now verify the escrow_holding_publicId account has the needed funding for the purchase and verifies the b64_timed_env transaction will be valid with payment as expected. if funding is seen correct, it can update the customers transaction status to processing and starts shipment procedures.
 
-* After the customer receives his package and is satisfied with the product or service, he/she has the option to send the store a transaction to merge the escrow account with the stores general account and optionaly a secound opp that returns the XLM funds back to the buyer that steup the transaction and maybe some part sent as a fee to the escrow service.
+* When the escrow expires the b64_tx that the customer sent the store becomes valid.  The store processing software auto detects this event and send the stored transaction onto the stellar network that moves the asset from the locked escrow account into the store public payment address.  The same transaction also returns the remaining XLM funds back to the customer that created the escrow account and removes the escrow account from the stellar net.
 
-* When the store recieves the above transaction it can add it's signature to the transaction and retreave the escrow funds.
-
-* In the event the Customer fails to send the store the release funds transaction, the store can then use the 3rd party transaction after it becomes valid to retrieave the escrow funds.
-
-* On the event that the customer is not happy with the product service and the store fails to send a refund transaction, the 3rd party can step in and send a transaction to release the funds back to the customer or to the store depending on how it see's it.
-
-* At this point I had planed to use standard restclient protocol to perform the above.  But if times to setup accounts is too slow we may end up with restclient timeouts.  So if that ends up being the case we may need to move to websocket protocol.  Websocket may be better from the start, I'm not really sure.  It's not really any more difficult to setup so we can even try to support both as I did in mss-server of different port addresses.
+* In the event that the customer is not happy with the product service and the store fails to send a refund transaction, the 3rd party can step in and send a transaction to release the funds back to the customer or to the store depending on how the 3rd party escrow agent see's it.
 
 * We now have working code for the above V3.0 in this release with my_wallet web app presently being the only wallet that supports escrow V3.0 at this time.
 
