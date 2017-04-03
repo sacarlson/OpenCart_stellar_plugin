@@ -20,6 +20,9 @@ $_['entry_enable_escrow'] = 'Enable Escrow';
 $_['entry_escrow_expire_hours'] = 'Escrow Expire hours';
 $_['entry_escrow_vendor_signer_secret'] = 'Vendor Signer Secret Key';
 
+$_['entry_escrow_min_fee'] = 'Escrow Min base fee XLM';
+$_['entry_escrow_pct_fee'] = 'Escrow Percent Gross fee';
+$_['entry_escrow_currency_value_mult'] = 'Escrow Currency Multiplier';
 
 $_['entry_total']        = 'Total';
 $_['entry_order_status'] = 'Order Status';
@@ -40,6 +43,10 @@ $_['help_escrows_email'] = 'Email address of the 3rd party escrow signer';
 $_['help_enable_escrow'] = 'If value is set to no or blank then escrow service mode will not be an option in checkout, default is blank (disabled) '; 
 $_['help_escrow_expire_hours'] = 'The number of hours before the time based transaction becomes valid for payment of the purchase in the event buyer doesnt clear';
 $_['help_escrow_vendor_signer_secret'] = 'Vendor Signer Secret key that is used to sign incoming escrows transaction captures, it is not the same account that money is sent to';
+
+$_['help_escrow_min_fee'] = 'Minimum base fee that the Escrow service charges per contract paid in XLM';
+$_['help_escrow_pct_fee'] = 'Percentage of the gross purchase that the Escrow service charges per contract paid in XLM';
+$_['help_escrow_currency_value_mult'] = 'The value that the Escrow service has set for the asset the vendor is using to calculate percentage fee example 500 might be used for USD to XLM if vendor used USD for product payment, contact Escrow service to get number';
 
 // Error
 $_['error_permission']   = 'Warning: You do not have permission to modify payment Stellar.org Net Delivery!';

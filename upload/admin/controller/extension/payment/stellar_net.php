@@ -42,6 +42,10 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['entry_escrow_expire_hours'] = $this->language->get('entry_escrow_expire_hours');
         $data['entry_escrow_vendor_signer_secret'] = $this->language->get('entry_escrow_vendor_signer_secret');
 
+        $data['entry_escrow_min_fee'] = $this->language->get('entry_escrow_min_fee');
+        $data['entry_escrow_pct_fee'] = $this->language->get('entry_escrow_pct_fee');
+        $data['entry_escrow_currency_value_mult'] = $this->language->get('entry_escrow_currency_value_mult');
+
 		$data['help_total'] = $this->language->get('help_total');
         $data['help_asset_code'] = $this->language->get('help_asset_code');
         $data['help_publicid'] = $this->language->get('help_publicid');
@@ -54,6 +58,10 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['help_enable_escrow'] = $this->language->get('help_enable_escrow');
         $data['help_escrow_expire_hours'] = $this->language->get('help_escrow_expire_hours');
         $data['help_escrow_vendor_signer_secret'] = $this->language->get('help_escrow_vendor_signer_secret');
+
+        $data['help_escrow_min_fee'] = $this->language->get('help_escrow_min_fee');
+        $data['help_escrow_pct_fee'] = $this->language->get('help_escrow_pct_fee');
+        $data['help_escrow_currency_value_mult'] = $this->language->get('help_escrow_currency_value_mult');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -145,6 +153,22 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 			$data['stellar_net_escrow_vendor_signer_secret'] = $this->request->post['stellar_net_escrow_vendor_signer_secret'];
 		} else {
 			$data['stellar_net_escrow_vendor_signer_secret'] = $this->config->get('stellar_net_escrow_vendor_signer_secret');
+		}
+
+        if (isset($this->request->post['stellar_net_escrow_min_fee'])) {
+			$data['stellar_net_escrow_min_fee'] = $this->request->post['stellar_net_escrow_min_fee'];
+		} else {
+			$data['stellar_net_escrow_min_fee'] = $this->config->get('stellar_net_escrow_min_fee');
+		}
+        if (isset($this->request->post['stellar_net_escrows_pct_fee'])) {
+			$data['stellar_net_escrow_pct_fee'] = $this->request->post['stellar_net_escrow_pct_fee'];
+		} else {
+			$data['stellar_net_escrow_pct_fee'] = $this->config->get('stellar_net_escrow_pct_fee');
+		}
+        if (isset($this->request->post['stellar_net_escrow_currency_value_mult'])) {
+			$data['stellar_net_escrow_currency_value_mult'] = $this->request->post['stellar_net_escrow_currency_value_mult'];
+		} else {
+			$data['stellar_net_escrow_currency_value_mult'] = $this->config->get('stellar_net_escrow_currency_value_mult');
 		}
 
 

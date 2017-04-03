@@ -32,10 +32,7 @@
   <label for="qrcode_ver">Select Stellar.org QR-Code Version (default 2.1)</label>
   <select name="qrcode_ver" id="qrcode_ver" >
     <option selected disabled>Choose QR-Code Version</option>
-    <option>1.0</option>
-    <option>2.0</option>
     <option>2.1</option> 
-    <option>2.2</option>
     <option>2.3</option> 
 <?php
   if ($enable_escrow == '1'){
@@ -56,12 +53,22 @@ if ($enable_escrow == '1'){
 <script type="text/javascript">
 $( document ).ready(function () {
     
+//var qrcode = new QRCode(document.getElementById("qrcode"), {
+//	width : 300,
+//	height : 300
+//});
+
 var qrcode = new QRCode(document.getElementById("qrcode"), {
-	width : 300,
-	height : 300
-});
+    //text: text,
+    width: 300,
+    height: 300,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.L
+  });
+
 //qrcode.makeCode("<?php echo $qrcode_json; ?>");
-qrcode.makeCode("<?php echo $qrcode_v2_1; ?>");
+qrcode.makeCode('<?php echo $qrcode_v2_1; ?>');
 
 qrcode_ver.onchange=function(){ //run some code when "onchange" event fires
         var chosenoption=this.options[this.selectedIndex]; //this refers to "selectmenu"
@@ -69,15 +76,15 @@ qrcode_ver.onchange=function(){ //run some code when "onchange" event fires
           console.log("qrcode_ver selected: " + chosenoption.value);
           if (chosenoption.value == 1.0){
             console.log("here");
-            qrcode.makeCode("<?php echo $qrcode_v1; ?>");
+            qrcode.makeCode('<?php echo $qrcode_v1; ?>');
           }else if (chosenoption.value == 2.0){
             console.log("here 2.0");
-            qrcode.makeCode("<?php echo $qrcode_v2; ?>");
+            qrcode.makeCode('<?php echo $qrcode_v2; ?>');
           }else if (chosenoption.value == 2.1){
             console.log("here 2.1");
-            qrcode.makeCode("<?php echo $qrcode_v2_1; ?>");
+            qrcode.makeCode('<?php echo $qrcode_v2_1; ?>');
           }else if (chosenoption.value == "2.2"){
-            qrcode.makeCode("<?php echo $qrcode_v2_2; ?>");
+            qrcode.makeCode('<?php echo $qrcode_v2_2; ?>');
           }else if (chosenoption.value == "2.3"){
             qrcode.makeCode('<?php echo $qrcode_v2_3; ?>');
           }else if (chosenoption.value == "3.0"){
@@ -115,7 +122,7 @@ $('#button-confirm').on('click', function() {
 			$('#button-confirm').button('reset');
 		},
 		success: function() {
-            alert("success!!  Make sure to send total funds of purchase to stellar address payment address to continue processing" )
+            alert("success!!  Make sure to send total funds of purchase to stellar address payment address to continue processing if not done already" )
 			location = '<?php echo $continue; ?>';
 		}
 	});

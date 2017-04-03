@@ -77,10 +77,32 @@
               <input type="text" name="stellar_net_escrows_publicId" value="<?php echo $stellar_net_escrows_publicId; ?>" placeholder="<?php echo $entry_escrows_publicId; ?>" id="stellar_net_escrows_publicId" class="form-control" />
             </div>
           </div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label" for="stellar_net_escrows_email"><span data-toggle="tooltip" title="<?php echo $help_escrows_email; ?>"><?php echo $entry_escrows_email; ?></span></label>
             <div class="col-sm-10">
               <input type="text" name="stellar_net_escrows_email" value="<?php echo $stellar_net_escrows_email; ?>" placeholder="<?php echo $entry_escrows_email; ?>" id="stellar_net_escrows_email" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="stellar_net_escrow_min_fee"><span data-toggle="tooltip" title="<?php echo $help_escrow_min_fee; ?>"><?php echo $entry_escrow_min_fee; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_escrow_min_fee" value="<?php echo $stellar_net_escrow_min_fee; ?>" placeholder="<?php echo $entry_escrow_min_fee; ?>" id="stellar_net_escrow_min_fee" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="stellar_net_escrow_pct_fee"><span data-toggle="tooltip" title="<?php echo $help_escrow_pct_fee; ?>"><?php echo $entry_escrow_pct_fee; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_escrow_pct_fee" value="<?php echo $stellar_net_escrow_pct_fee; ?>" placeholder="<?php echo $entry_escrow_pct_fee; ?>" id="stellar_net_escrow_pct_fee" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="stellar_net_escrow_currency_value_mult"><span data-toggle="tooltip" title="<?php echo $help_escrow_currency_value_mult; ?>"><?php echo $entry_escrow_currency_value_mult; ?></span></label>
+            <div class="col-sm-10">
+              <input type="text" name="stellar_net_escrow_currency_value_mult" value="<?php echo $stellar_net_escrow_currency_value_mult; ?>" placeholder="<?php echo $entry_escrow_currency_value_mult; ?>" id="stellar_net_escrow_currency_value_mult" class="form-control" />
             </div>
           </div>
 

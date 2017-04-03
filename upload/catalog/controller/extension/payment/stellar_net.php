@@ -37,9 +37,13 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['base_url'] = $this->config->get('config_url');
         $data['callback_url'] = $data['base_url'] . '?route=extension/payment/stellar_net/get_tx&';
 
-        $data['escrow_min_fee'] = 10;
-        $data['escrow_pct_fee'] =1;
-        $data['escrow_currency_value_mult'] = 500;
+        //$data['escrow_min_fee'] = 10;
+        //$data['escrow_pct_fee'] =1;
+        //$data['escrow_currency_value_mult'] = 500;
+        $data['escrow_min_fee'] = $this->config->get('stellar_net_escrow_min_fee');
+        $data['escrow_pct_fee'] = $this->config->get('stellar_net_escrow_pct_fee');
+        $data['escrow_currency_value_mult'] = $this->config->get('stellar_net_escrow_currency_value_mult');
+
         $data['enable_escrow'] =$this->config->get('stellar_net_enable_escrow');
         $data['escrow_expire_hours'] = $this->config->get('stellar_net_escrow_expire_hours');
         $data['escrows_publicId'] = $this->config->get('stellar_net_escrows_publicId');
@@ -54,18 +58,21 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $data['currency_value'] = $order_info['currency_value'];
         $data['total_currency'] =  $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
         $data['total'] = $order_info['total'];
-        $data['escrow_fee_xlm'] = round($data['escrow_min_fee'] + ($data['escrow_pct_fee']*.01* $data['escrow_currency_value_mult']));
-        
+        $data['escrow_fee_xlm'] = $data['escrow_min_fee'] + ($data['escrow_currency_value_mult'] * $data['escrow_pct_fee'] * 0.01 * $data['total']);        
+
         $data['qrcode_v1'] = '%7B%22destination%22:%22' . $data['stellar_net_publicid'] . '%22,%22amount%22:%22' . $data['total'] . '%22,%22asset%22:%22' . $data['asset_code'] . '%22,%22issuer%22:%22' . $data['issuer'] . '%22,%22memo%22:%22' . $data['order_id'] . '%22%7D';
        
         $data['wallet_url'] = $this->config->get('stellar_net_wallet_url');
                    
-        $data['qrcode_vx'] = '%7B%22tx_tag%22:%22' . $data['order_id'] . '%22,%22callback%22:%22' . $data['callback_url'] . '%22,%22ver%22:%22';     
+        $data['qrcode_vx'] = '%7B%22tx_tag%22:%22' . $data['order_id'] . '%22,%22callback%22:%22' . $data['callback_url'] . '%22,%22ver%22:%22';  
+        $data['qrcode_vx2'] = '{"tx_tag":"' . $data['order_id'] . '","callback":"' . $data['callback_url'] . '","ver":"';     
         //$data['qrcode_v2'] = '%7B%22tx_tag%22:%22' . $data['order_id'] . '%22,%22callback%22:%22' . $data['callback_url'] . '%22,%22ver%22:%222.0%22%7D';
         //$data['qrcode_v2_1'] = '%7B%22tx_tag%22:%22' . $data['order_id'] . '%22,%22callback%22:%22' . $data['callback_url'] . '%22,%22ver%22:%222.1%22%7D';
         $data['qrcode_v2'] =   $data['qrcode_vx'] . '2.0%22%7D';
-        $data['qrcode_v2_1'] = $data['qrcode_vx'] . '2.1%22%7D';
-        $data['qrcode_v3_0'] = $data['qrcode_vx'] . '3.0%22%7D';
+        $data['qrcode_v2_2'] = $data['qrcode_vx'] . '2.1%22%7D';
+        $data['qrcode_v3_1'] = $data['qrcode_vx'] . '3.0%22%7D';
+        $data['qrcode_v3_0'] = $data['qrcode_vx2'] . '3.0"}';
+        $data['qrcode_v2_1'] = $data['qrcode_vx2'] . '2.1"}';
         $data['qrcode_url'] = $data['wallet_url'] . '/?json=' . $data['qrcode_v1'];		
         $data['qrcode_url_v2'] = $data['wallet_url'] . '/?json=' . $data['qrcode_v2'];
         $data['qrcode_url_v3'] = $data['wallet_url'] . '/?json=' . $data['qrcode_vx'] . '3.0%22%7D';
@@ -147,7 +154,8 @@ class ControllerExtensionPaymentStellarNet extends Controller {
      if (isset($stellar_order_info['capture_status'])){
        $data['stellar_order_status'] = $stellar_order_info['capture_status'];
      }else{
-       $data['stellar_order_status'] = "0";
+       // code 10 is what should be returned if this order_id doesn't exist yet in capture_status
+       $data['stellar_order_status'] = "10";
      }
 
      $data['testmode'] = $this->config->get('stellar_net_testnet_mode');
@@ -159,10 +167,17 @@ class ControllerExtensionPaymentStellarNet extends Controller {
      $data['escrows_email'] = $this->config->get('stellar_net_escrows_email');
      $data['escrow_expire_hours'] = $this->config->get('stellar_net_escrow_expire_hours');
      $data['enable_escrow'] = $this->config->get('stellar_net_enable_escrow');
-     $data['version'] = $this->request->get['ver'];
-     $data['escrow_min_fee'] = 10;
-     $data['escrow_pct_fee'] = 0.5;
-     $data['escrow_currency_value_mult'] = 500;
+     if (isset($this->request->get['ver'])){
+       $data['version'] = $this->request->get['ver'];
+     }else{
+       $data['version'] = "2.1";
+     }
+     //$data['escrow_min_fee'] = 10;
+     //$data['escrow_pct_fee'] = 0.5;
+     //$data['escrow_currency_value_mult'] = 500;
+     $data['escrow_min_fee'] = $this->config->get('stellar_net_escrow_min_fee');
+     $data['escrow_pct_fee'] = $this->config->get('stellar_net_escrow_pct_fee');
+     $data['escrow_currency_value_mult'] = $this->config->get('stellar_net_escrow_currency_value_mult');
 
      $data['escrow_expires_ts'] = time() + ($data['escrow_expire_hours'] * 60 *60);
      $data['escrow_expires_dt'] = date('Y-m-d', $data['escrow_expires_ts']);
@@ -196,6 +211,9 @@ class ControllerExtensionPaymentStellarNet extends Controller {
           $sg->stellar->payment->escrow->expire_dt = $data['escrow_expires_dt']; 
           $sg->stellar->payment->escrow->status = $data['stellar_order_status'];
           $sg->stellar->payment->escrow->fee = $data['escrow_fee'];
+          $sg->stellar->payment->escrow->min_fee = $data['escrow_min_fee'];
+          $sg->stellar->payment->escrow->pct_fee = $data['escrow_pct_fee'];
+          $sg->stellar->payment->escrow->fee_value_mult = $data['escrow_currency_value_mult'];
           //$sg->stellar->payment->escrow->currency_value_mult = $data['escrow_currency_value_mult'];
           $sg->stellar->payment->escrow->callback = $data['base_url'].'?route=extension/payment/stellar_net/submit_escrow&';           
         }
@@ -213,8 +231,12 @@ class ControllerExtensionPaymentStellarNet extends Controller {
      
    }
  
+   // used in escrow submited transactions
    public function addTransaction($order_id, $escrow_b64_tx, $escrow_publicId, $escrow_expire_ts, $total, $status = "0") {
 		$this->db->query("INSERT INTO `" . DB_PREFIX . "stellar_net_order` SET `order_id` = '" . (int)$order_id . "', `escrow_b64_tx` = '" . $escrow_b64_tx . "', `escrow_expire_ts` = FROM_UNIXTIME(" . (int)$escrow_expire_ts . "), `date_added` = now(), `escrow_publicId` = '" . $escrow_publicId . "', `capture_status` = '" . $status . "', `total` = '" . $total . "'");
+
+        // order_status 2 = processing,  5 = completed, 3 = shipped, 10 = failed, 15 = processed; this is seen by user and admin in OpenCart
+        $this->updateOrderStatus($order_id, 2, "Stellar_net Escrow mode");
    }
 
    public function add_stellar_net_order_Table(){
@@ -286,7 +308,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 
 //addTransaction($order_id, $escrow_b64_tx, $escrow_publicId, $escrow_expire_ts, $total, $status = "0") 
 
-     $this->addTransaction($data['order_id'], $data['b64_timed_tx_env'], $data['escrow_holding_publicId'], $data['escrow_expire_timestamp'], $data['total'],"0");
+     $this->addTransaction($data['order_id'], $data['b64_timed_tx_env'], $data['escrow_holding_publicId'], $data['escrow_expire_timestamp'], $data['total'],"1");
 
      echo "escrow_submit_accepted";
      
@@ -307,7 +329,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
           return;
        }
      } else {
-       echo "no token </br>";
+        echo "no token </br>";
        return;
      }
 
@@ -381,7 +403,8 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         $status_id = 10; // failed
         //return;
      }
-        
+     
+     // order_status 2 = processing,  5 = completed, 3 = shipped, 10 = failed, 15 = processed; this is seen by user and admin in OpenCart  
      $this->updateOrderStatus($order_id, $status_id, $comment);
 
      //echo "test: " . $this->url->link('extension/payment/stellar_net/callback');
