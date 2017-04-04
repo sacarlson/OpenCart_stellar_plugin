@@ -101,7 +101,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         // v2.2 stargazer with added urlencoding
         $data['qrcode_v2_2'] = urlencode(json_encode($sg));
         // v2.3 should be compatible with stargazer wallet , can't use this causes problem in php code
-        $data['qrcode_v2_3'] = json_encode($sg);
+        $data['qrcode_v2_3'] = json_encode($sg, JSON_NUMERIC_CHECK); 
         $data['stargazer_qrcode_obj'] = $sg;
         
         return $this->load->view('extension/payment/stellar_net', $data);
@@ -195,7 +195,7 @@ class ControllerExtensionPaymentStellarNet extends Controller {
         } else {
           $sg->stellar->payment->network = "7ac33997";
         }
-        $sg->stellar->payment->amount = $data['total'];
+        $sg->stellar->payment->amount =  floatval($data['total']);
         $sg->stellar->payment->asset = new \stdClass();
         $sg->stellar->payment->asset->code = $data['asset_code'];
         $sg->stellar->payment->asset->issuer = $data['issuer'];
@@ -218,7 +218,8 @@ class ControllerExtensionPaymentStellarNet extends Controller {
           $sg->stellar->payment->escrow->callback = $data['base_url'].'?route=extension/payment/stellar_net/submit_escrow&';           
         }
         $sg->stellar->version = $data['version'];
-        $data['stargazer_qrcode_json'] = json_encode($sg);
+        //$data['stargazer_qrcode_json'] = json_encode($sg);
+        $data['stargazer_qrcode_json'] = json_encode($sg, JSON_NUMERIC_CHECK); 
      if (isset($this->request->get['ver'])) {
        if (floatval($this->request->get['ver']) >= 2.1) {
          echo $data['stargazer_qrcode_json'];
@@ -309,9 +310,9 @@ class ControllerExtensionPaymentStellarNet extends Controller {
 //addTransaction($order_id, $escrow_b64_tx, $escrow_publicId, $escrow_expire_ts, $total, $status = "0") 
 
      $this->addTransaction($data['order_id'], $data['b64_timed_tx_env'], $data['escrow_holding_publicId'], $data['escrow_expire_timestamp'], $data['total'],"1");
-
+     //$this->cart->clear();
      echo "escrow_submit_accepted";
-     
+
    }
 
    
