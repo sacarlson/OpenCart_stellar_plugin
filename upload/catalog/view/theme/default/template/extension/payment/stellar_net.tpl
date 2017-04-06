@@ -29,7 +29,7 @@
 ?>
 <br />
  
-  <label for="qrcode_ver">Select Stellar.org QR-Code Version (default 2.1)</label>
+  <label for="qrcode_ver">Select Stellar.org QR-Code Version (default 2.3)</label>
   <select name="qrcode_ver" id="qrcode_ver" >
     <option selected disabled>Choose QR-Code Version</option>
     <option>2.1</option> 
@@ -43,9 +43,9 @@
 
 <?php
 if ($enable_escrow == '1'){   
-    echo '<a href="' . $qrcode_url_v3 . '" target="_blank"><img id="qrcode" style="width:300px; height:300px; margin-top:15px;"/></a>';
+    echo '<a href="' . $qrcode_url_v3 . '" target="_blank"><div id="qrcode" style="width:300px; height:300px; margin-top:15px;"></div></a>';
   }else {
-    echo '<a href="' . $qrcode_url_v2 . '" target="_blank"><img id="qrcode" style="width:300px; height:300px; margin-top:15px;"/></a>';
+    echo '<a href="' . $qrcode_url_v2 . '" target="_blank"><div id="qrcode" style="width:300px; height:300px; margin-top:15px;"></div></a>';
   }
 ?>
 
@@ -65,10 +65,9 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
     colorDark : "#000000",
     colorLight : "#ffffff",
     correctLevel : QRCode.CorrectLevel.L
-  });
+ });
 
-//qrcode.makeCode("<?php echo $qrcode_json; ?>");
-qrcode.makeCode('<?php echo $qrcode_v2_1; ?>');
+qrcode.makeCode('<?php echo $qrcode_v2_3; ?>');
 
 qrcode_ver.onchange=function(){ //run some code when "onchange" event fires
         var chosenoption=this.options[this.selectedIndex]; //this refers to "selectmenu"
